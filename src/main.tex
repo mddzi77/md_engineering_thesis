@@ -1,0 +1,76 @@
+%! Author = mddzi
+%! Date = 01.06.2024
+
+% Preamble
+\documentclass[12pt,twoside,a4paper]{report}
+
+% Packages
+\usepackage{amsmath}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage{lastpage}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage[svgnames]{xcolor}
+\usepackage[font={small,color=Grey},labelsep=period,width={0.8\textwidth}]{caption}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{etoolbox}
+
+\geometry{margin=3cm}
+
+\renewcommand{\figurename}{Rysunek}
+\renewcommand{\chaptername}{Rozdział}
+\renewcommand{\contentsname}{Spis treści}
+\pagestyle{fancy}
+
+\title{\textbf{Program do tworzenia schematów układów scalonych w formie gry edukacyjnej}\\[2ex]
+    \large Program for creating IC diagrams in the form of an educational game\\
+}
+\author{Maksymilian Dziemiańczuk}
+\date{}
+
+\fancyhf{}
+\fancyhead{}
+\fancyhead[RO,LE]{Program do tworzenia schematów układów scalonych w formie gry edukacyjnej}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO, RE]{Maksymilian Dziemiańczuk}
+\fancypagestyle{plain}{
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyhf{}
+    \fancyfoot[LO, RE]{\thepage}
+    \fancyfoot[LE,RO]{Maksymilian Dziemiańczuk}
+}
+
+
+% Document
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\chapter{Wprowadzenie}
+\input{chapters/wprowadzenie}
+
+\chapter{Część 2}
+\input{chapters/chapter2}
+
+
+%\newpage
+%
+%    \chapter{Wprowadzenie}
+%        \section{Wstęp}
+%        \section{Cel i zakres pracy}
+%    \chapter{Cel i zakres pracy}
+
+\end{document}
