@@ -25,6 +25,9 @@
 \usepackage{hyperref}
 \usepackage{pdfpages}
 \usepackage{indentfirst}
+\usepackage{icomma}
+\usepackage{natbib}
+%\usepackage[backend=bibtex, sorting=none]{biblatex}
 
 \geometry{margin=3.5cm}
 
@@ -71,12 +74,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit
 
 \tableofcontents
 
-\chapter{Wstęp i cel pracy}
-\input{chapters/wprowadzenie}
+\input{chapters/introduction}
 
 %\LaTeX{} \cite{VLSI} is a set of macros built atop \TeX{} \cite{texbook}.
 
-    \bibliography{main}
-    \bibliographystyle{plain}
+\bibliography{main}
+\bibliographystyle{unsrt}
 
 \end{document}
