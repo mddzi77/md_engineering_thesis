@@ -2,6 +2,7 @@
 %! Date = 02.06.2024
 
 % Preamble
+% czcionka zgodna z wytycznymi to 10pt
 \documentclass[12pt,a4paper,twoside]{report}
 
 % Packages
@@ -11,7 +12,8 @@
 \usepackage{lmodern}
 \usepackage{textcomp}
 \usepackage{lastpage}
-\usepackage{geometry}
+%\usepackage[inner=3.5cm,outer=2.5cm,top=2.5cm,bottom=2.5cm]{geometry} % margines zgodny z wytycznymi
+ \usepackage[margin=3.5cm]{geometry} % margines oryginalny
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage[svgnames]{xcolor}
@@ -31,13 +33,13 @@
 %\usepackage{lstmisc}
 %\usepackage[backend=bibtex, sorting=none]{biblatex}
 
-\geometry{margin=3.5cm}
-
 \renewcommand{\figurename}{Rysunek}
 \renewcommand{\chaptername}{Rozdział}
 \renewcommand{\contentsname}{Spis treści}
 \renewcommand{\bibname}{Bibliografia}
-%\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\baselinestretch}{1.1} % interlinia oryginalna
+%\renewcommand{\baselinestretch}{1.5} % interlinia zgodna z wytycznymi
+\setlength\parindent{1.25cm} % wcięcie akapitowe zgodne z wytycznymi
 
 \pagestyle{fancy}
 
