@@ -31,6 +31,8 @@
 \usepackage{natbib}
 \usepackage{microtype}
 \usepackage{url}
+\usepackage{calc}
+\usepackage{enumitem}
 %\usepackage{lstmisc}
 %\usepackage[backend=bibtex, sorting=none]{biblatex}
 
@@ -40,6 +42,7 @@
 % figures count
 \counterwithout{figure}{chapter}
 
+% specified names
 \renewcommand{\figurename}{Rysunek}
 \renewcommand{\chaptername}{Rozdział}
 \renewcommand{\contentsname}{Spis treści}
@@ -47,7 +50,43 @@
 \renewcommand{\listfigurename}{Spis rysunków}
 \renewcommand{\baselinestretch}{1.1} % interlinia oryginalna
 %\renewcommand{\baselinestretch}{1.5} % interlinia zgodna z wytycznymi
-\setlength\parindent{1.25cm} % wcięcie akapitowe zgodne z wytycznymi
+\setlength{\parindent}{1.25cm} % wcięcie akapitowe zgodne z wytycznymi
+
+% custom compact enumarate
+\newenvironment{cenumerate}
+{ \begin{enumerate}[itemsep=5pt,topsep=5pt,parsep=0pt] }
+{
+    \end{enumerate}
+    \vspace{5pt}
+}
+
+% custom compact itemize
+\newenvironment{citemize}
+{ \begin{itemize}[itemsep=5pt,topsep=5pt,parsep=0pt] }
+{
+    \end{itemize}
+    \vspace{5pt}
+}
+
+%define the environment for compact enumeration
+%\newenvironment{cenumerate}{
+%\setlength{\parskip}{0pt}
+%\begin{enumerate}
+%\setlength{\itemsep}{0pt}
+%\setlength{\parskip}{0pt}
+%\setlength{\parsep}{0pt}
+%}
+%{\end{enumerate}\setlength{\parskip}{11pt}}
+%%define the environment for compact itemization
+%\newenvironment{citemize}{
+%\setlength{\parskip}{0pt}
+%\begin{itemize}
+%\setlength{\itemsep}{0pt}
+%\setlength{\parskip}{0pt}
+%\setlength{\parsep}{0pt}
+%}
+%{\end{itemize}\setlength{\parskip}{11pt}}
+
 
 % set pagestyle
 \pagestyle{fancy}
