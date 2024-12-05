@@ -34,15 +34,22 @@
 %\usepackage{lstmisc}
 %\usepackage[backend=bibtex, sorting=none]{biblatex}
 
+% set url breaks
 \def\UrlBreaks{\do\/\do-}
+
+% figures count
+\counterwithout{figure}{chapter}
+
 \renewcommand{\figurename}{Rysunek}
 \renewcommand{\chaptername}{Rozdział}
 \renewcommand{\contentsname}{Spis treści}
 \renewcommand{\bibname}{Bibliografia}
+\renewcommand{\listfigurename}{Spis rysunków}
 \renewcommand{\baselinestretch}{1.1} % interlinia oryginalna
 %\renewcommand{\baselinestretch}{1.5} % interlinia zgodna z wytycznymi
 \setlength\parindent{1.25cm} % wcięcie akapitowe zgodne z wytycznymi
 
+% set pagestyle
 \pagestyle{fancy}
 
 \title{\textbf{Program do tworzenia schematów układów scalonych w formie gry edukacyjnej}\\[2ex]
@@ -51,6 +58,7 @@
 \author{Maksymilian Dziemiańczuk}
 \date{}
 
+% Header and footer
 \fancyhf{}
 \fancyhead{}
 \fancyhead[RO,LE]{Maksymilian Dziemiańczuk}
@@ -68,10 +76,10 @@
 % Document
 \begin{document}
 
-%\maketitle
+% title page
 \includepdf[pages={1}]{StronaTytulowa_185578.pdf}
 
-%pusta strona
+% empty page
 \newpage \thispagestyle{empty} \ \newpage
 
 \input{chapters/abstract}
@@ -81,9 +89,14 @@
 \input{chapters/introduction}
 \input{chapters/chapter2/chapter2}
 
-%\LaTeX{} \cite{VLSI} is a set of macros built atop \TeX{} \cite{texbook}.
-
+% Bibliography
 \bibliography{main}
 \bibliographystyle{unsrt}
+\addcontentsline{toc}{chapter}{Bibliografia}
+    
+% List of figures
+\thispagestyle{empty}
+\listoffigures
+\addcontentsline{toc}{chapter}{Spis rysunków}
 
 \end{document}
