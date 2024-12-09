@@ -4,14 +4,27 @@ Kolejnym programem do projektowania schematów układów scalonych jest Electric
 opracowany przez S. M. Rubina w 1981 roku.
 Od samego początku posiadał otwarty kod źródłowy
 oraz był udostępniany wielu uczelniom na całym świecie.
-Oryginalnie napisany w języku C,
+Electric jest oficjalnym pakietem GNU, co oznacza,
+że jest dystrybuowany jako wolne oprogramowanie zgodnie z zasadami projektu GNU~\cite{electric_gnu}.
+Projekt ten jest inicjatywą, która ma na celu rozwój wolnego oprogramowania,
+umożliwiającego swobodne korzystanie, modyfikowanie i rozpowszechnianie~\cite{gnu_site}.
+Program Electric był oryginalnie napisany w języku C,
 natomiast w 2003 rozpoczęto proces tłumaczenia na język Java, zakończony sukcesem w 2005 roku~\cite{electric_gnu}.
 Dzięki temu program jest dostępny na każdym systemie,
 na którym zainstalowana jest Java w wersji 1.6 lub nowszej.
 Do samej instalacji wystarczy natomiast pobrać plik \texttt{.jar} z oficjalnej strony programu~\cite{electric_sfs}.
 Podobnie jak Microwind, Electric jest oprogramowaniem EDA, zawierający wiele modułów wspierających projektowanie układów scalonych.
 Większość nich jest pod postacią dodatkowo instalowanych wtyczek,
-poszerzających jego funkcjonalność~\cite{electric_sfs, electric_gnu}.\\
+poszerzających jego funkcjonalność~\cite{electric_sfs, electric_gnu}.
+Dzięki wykorzystaniu Javy, Electric posiada nowocześniejszy interfejs graficzny,
+pokazany na rys.~\ref{fig:electric_okno}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.9\textwidth]{chapters/chapter2/img/electric_okno}
+    \caption[Widok głównego okna programu Electric.]{Widok głównego okna programu Electric, źródło:~\cite{electric_sfs}.}
+    \label{fig:electric_okno}
+\end{figure}
 %\indent Electric charakteryzuje się całkowicie odmienną metodą projektowania topografii niż większość programów.
 \indent Electric stosuje metodę projektowania topografii odmienną od większości innych narzędzi tego typu.
 Podobnie jak edytory schematów elektrycznych, opiera się na podejściu połączeniowym,
@@ -33,17 +46,7 @@ Może jednak okazać się mniej efektywne w przypadku złożonych układów o ni
 Ponadto wymaga adaptacji ze względu na inny proces projektowania,
 o czym wspomina sam autor programu~\cite{electric_computer_aids}.\\
 %natomiast problem może stanowić tworzenie układów o bardziej skomplikowanej i złożonej geometrii.\\
-\indent Dzięki wykorzystaniu Javy, Electric posiada nowocześniejszy interfejs graficzny,
-pokazany na rys.~\ref{fig:electric_okno}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.9\textwidth]{chapters/chapter2/img/electric_okno}
-    \caption[Widok głównego okna programu Electric.]{Widok głównego okna programu Electric, źródło:~\cite{electric_sfs}.}
-    \label{fig:electric_okno}
-\end{figure}
-
-Sposób poruszania się po obszarze roboczym oraz skróty klawiszowe również są bardziej zgodne z obecnymi standardami,
+Sposób poruszania się po obszarze roboczym oraz skróty klawiszowe są natomiast bardziej zgodne z obecnymi standardami,
 dzięki czemu program staje się bardziej intuicyjny w obsłudze.
 Przykładowo poruszanie się po obszarze roboczym odbywa się poprzez przytrzymanie środkowego przycisku myszy
 i jednoczesne przesunięcie kursora.
