@@ -15,12 +15,12 @@ niekoniecznie sprzyja pozytywnemu pierwszemu wrażeniu użytkowania. %\textit{FT
 %(ang. \textit{First Time User Experience}).
 \newpage
 \indent Unikalną cechą programu Magic jest wprowadzenie techniki strukturyzacji danych
-zszytych narożników \textit{corner-stitched},
+zszytych narożników (ang. \textit{corner-stitched}),
 która znacząco poprawia jego wydajność.
 Mechanizm ten opiera się na reprezentacji układu scalonego jako zestaw warstw,
 na które składa się zestaw prostokątnych komórek.
 %(ang. \textit{cells}).
-Każda komórka zawiera zszyte narożnikami powierzchnie (ang. \textit{corner-stitched planes}),
+Każda komórka zawiera zszyte narożnikami powierzchnie,
 opisujące jej geometrię oraz podkomórki, a każda z nich składa się z wielu prostokątnych kafelków.
 Taka struktura pozwala na szybkie i efektywne operacje na schemacie,
 takie jak znajdywanie wszystkich kafelek w danym obszarze lub sąsiadów danej komórki.
@@ -56,7 +56,7 @@ Jest to początkowo nieintuicyjne dla użytkownika,
 natomiast charakteryzuje się precyzją, stąd podobna funkcjonalność została zaimplementowana w projekcie.
 W przypadku reszty funkcji takich jak przesuwanie, kopiowanie i skalowanie komórek,
 jak również sama nawigacja po obszarze roboczym odbiega od obecnego standardu różnego rodzaju edytorów
-i nierzadko wymaga wpisywania komend w konsoli.
+i zazwyczaj wymaga wpisywania komend w konsoli.
 Jest to obecnie rozwiązanie nieergonomiczne, gdyż obecnie większość podstawowych operacji wykonywanych jest
 jedynie przy użyciu skrótów klawiszowych oraz myszy.\\
 \indent Kolejnym istotnym aspektem jest także sama instalacja programu Magic VLSI\@.
@@ -67,7 +67,8 @@ Zważając na dużo większą popularność systemów operacyjnych Windows~\cite
 może być to niepotrzebną komplikacją dla użytkowników dopiero uczących się projektowania układów scalonych.\\
 \indent Nadmienić jednak trzeb, że istotną zaletą programu Magic jest prosta szata graficzna,
 a w szczególności tekstury materiałów, które są czytelne, pozwalają na łatwe rozróżnienie warstw,
-nawet gdy się na siebie nakładają, dzięki dobrze dobranym wzorom i kolorom, przykład przedstawiono na rys. \ref{fig:magic_tran}.
+nawet gdy się na siebie nakładają, dzięki dobrze dobranym wzorom i kolorom,
+przykład przedstawiono na rys. \ref{fig:magic_tran}.
 Implementacja podobnego rozwiązania w projekcie poprawi czytelność schematów.
 
 \begin{figure}[h]

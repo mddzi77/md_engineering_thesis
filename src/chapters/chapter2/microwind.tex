@@ -62,7 +62,9 @@ dzięki nim można na przykład:
 %\indent Ze względu na brak otwartego kodu źródłowego trudno określić dokładnie zastosowane mechanizmy edytora,
 %natomiast na podstawie obserwacji można stwierdzić,
 Warto zauważyć, że w celu ograniczenia zużycia pamięci program posiada limit liczby elementów w schemacie,
-przedstawione na rys.
+przedstawione na rys.~\ref{fig:microwind_limit}.
+Dla celów edukacyjnych jest to ograniczenie, które nie wpływa na użytkowanie programu,
+gdyż w większości przypadków nie powinno być przekraczane.
 
 \begin{figure}[h]
     \centering
@@ -104,10 +106,13 @@ Tło edytora można zmienić na białe, przy czym warstwy zostają wtedy przedst
 pokazane na rys.~\ref{fig:microwind_biale}.
 Dzięki temu widokowi można dostrzec, że każda rysowana komórka jest oddzielną instancją,
 przez możliwe jest rysowanie komórek na sobie,
-widoczne na rys.~\ref{fig:microwind_nadpisanie}, co nie jest optymalne w kwestii zużycia pamięci.
+widoczne na rys.~\ref{fig:microwind_nadpisanie}, co jest nie optymalne w kwestii zużycia pamięci.
 Dodatkowo motyw ten pozwala zobaczyć, że komórki są dzielone na kolumny,
 gdy wycinany jest kawałek większej komórki przy każdorazowym wykonaniu tej operacji,
 przykład czego przedstawiono na rys.~\ref{fig:microwind_kolumny}.
+Przy wielokrotnym wycinaniu jednego obszaru,
+powstające kolumny nie są łączone,
+przez co także zwiększa się zużycie pamięci oraz limitu elementów.
 
 \begin{figure}[h]
     \centering
