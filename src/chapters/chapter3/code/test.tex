@@ -1,0 +1,27 @@
+\begin{lstlisting}[language={C},label=lst:unity_drawing,caption={Unity drawing coroutine}]
+private async UniTask DrawingCoroutine()
+{
+    var startX = _startPos.x < _endPos.x ? (int) _startPos.x : (int) _endPos.x;
+    var endX = _startPos.x > _endPos.x ? (int) _startPos.x : (int) _endPos.x;
+    var startY = _startPos.y < _endPos.y ? (int) _startPos.y : (int) _endPos.y;
+    var endY = _startPos.y > _endPos.y ? (int) _startPos.y : (int) _endPos.y;
+
+    var counter = 0;
+    for (int x = startX; x <= endX; x++)
+    {
+        for (int y = startY; y <= endY; y++)
+        {
+            var position = new Vector3(x, y, _layerManager.CurrentLayer.Order);
+            _layerManager.CurrentLayerHolder.NewCellAsync(position).Forget();
+            
+            if (counter % 2000 == 0)
+            {
+                await UniTask.Yield();
+            }
+            counter++;
+        }
+    }
+    Debug.Log($"{(endX - startX + 1) * (endY - startY + 1)} cells drawn");
+    await UniTask.Yield();
+}
+\end{lstlisting}

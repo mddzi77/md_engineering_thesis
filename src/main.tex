@@ -11,7 +11,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{textcomp}
-\usepackage{lastpage}
+%\usepackage{lastpage}
 \usepackage[inner=3.5cm,outer=2.5cm,top=2.5cm,bottom=2.5cm]{geometry} % margines zgodny z wytycznymi
 %\usepackage[margin=3.5cm]{geometry} % margines oryginalny
 \usepackage{graphicx}
@@ -33,6 +33,7 @@
 \usepackage{url}
 \usepackage{calc}
 \usepackage{enumitem}
+\usepackage{listings}
 %\usepackage{lstmisc}
 %\usepackage[backend=bibtex, sorting=none]{biblatex}
 
@@ -40,17 +41,24 @@
 \def\UrlBreaks{\do\/\do-}
 
 % figures count
-\counterwithout{figure}{chapter}
+%\counterwithout{figure}{chapter}
 
 % specified names
 \renewcommand{\figurename}{Rysunek}
 \renewcommand{\chaptername}{Rozdział}
+\renewcommand{\tablename}{Tabela}
+\renewcommand{\abstractname}{Streszczenie}
 \renewcommand{\contentsname}{Spis treści}
 \renewcommand{\bibname}{Bibliografia}
 \renewcommand{\listfigurename}{Spis rysunków}
+\renewcommand{\listtablename}{Spis tabel}
+
 \renewcommand{\baselinestretch}{1.1} % interlinia oryginalna
 %\renewcommand{\baselinestretch}{1.5} % interlinia zgodna z wytycznymi
 \setlength{\parindent}{1.25cm} % wcięcie akapitowe zgodne z wytycznymi
+
+%\renewcommand{\rmdefault}{phv} % Arial
+%\renewcommand{\sfdefault}{phv} % Arial
 
 % custom compact enumarate
 \newenvironment{cenumerate}
@@ -68,40 +76,29 @@
     \vspace{5pt}
 }
 
-% TO-DO command
-\newcommand{\todo}
+% custom comands
+\newcommand{\todo} % command for TODO
 {
     \textcolor{magenta}{\textit{\textbf{TODO}}}
 }
+\newcommand{\um}{\text{$\mu$m}} % command for micrometer
 
-%define the environment for compact enumeration
-%\newenvironment{cenumerate}{
-%\setlength{\parskip}{0pt}
-%\begin{enumerate}
-%\setlength{\itemsep}{0pt}
-%\setlength{\parskip}{0pt}
-%\setlength{\parsep}{0pt}
-%}
-%{\end{enumerate}\setlength{\parskip}{11pt}}
-%%define the environment for compact itemization
-%\newenvironment{citemize}{
-%\setlength{\parskip}{0pt}
-%\begin{itemize}
-%\setlength{\itemsep}{0pt}
-%\setlength{\parskip}{0pt}
-%\setlength{\parsep}{0pt}
-%}
-%{\end{itemize}\setlength{\parskip}{11pt}}
-
-
-% set pagestyle
-\pagestyle{fancy}
-
-\title{\textbf{Program do tworzenia schematów układów scalonych w formie gry edukacyjnej}\\[2ex]
-    \large Program for creating IC diagrams in the form of an educational game\\
+\newcommand{\incomment}[1] % command for inline comment
+{
+    \textcolor{magenta}{\textit{#1}}
 }
-\author{Maksymilian Dziemiańczuk}
-\date{}
+
+% Listings style
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+%    frame=single,
+    numbers=left,
+    numbersep=5pt,
+    numberstyle=\tiny\color{gray},
+    showstringspaces=false,
+    tabsize=1
+}
 
 % Header and footer
 \fancyhf{}
@@ -118,6 +115,9 @@
     \fancyfoot[RE,LO]{\footnotesize Program do tworzenia schematów układów scalonych w formie gry edukacyjnej}
 }
 
+% set pagestyle
+\pagestyle{fancy}
+
 % Document
 \begin{document}
 
@@ -131,6 +131,7 @@
 
 \tableofcontents
 
+\input{chapters/symbols_abbreviations}
 \input{chapters/introduction}
 \input{chapters/chapter2/chapter2}
 \input{chapters/chapter3/chapter3}
@@ -144,5 +145,10 @@
 \thispagestyle{empty}
 \listoffigures
 \addcontentsline{toc}{chapter}{Spis rysunków}
+    
+% List of tables
+\thispagestyle{empty}
+\listoftables
+\addcontentsline{toc}{chapter}{Spis tabel}
 
 \end{document}
