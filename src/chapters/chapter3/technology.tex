@@ -3,7 +3,7 @@
 
 Ze względu na charakter aplikacji, jakim jest edukacyjna gra komputerowa,
 opierająca się w dużym stopniu na renderowaniu grafiki,
-do wykonania projektu wybrano silnik Unity w wersji 6000.0.25f1.
+do wykonania projektu wybrano silnik Unity w wersji 6000.0.25f1~\cite{unity_site}.
 Z wielu zalet silnika Unity, kluczowe dla niniejszego projektu są:
 
 \begin{citemize}
@@ -14,12 +14,30 @@ Z wielu zalet silnika Unity, kluczowe dla niniejszego projektu są:
     dzięki czemu można skupić się na tworzeniu mechanik gry.
     \item Szerokie wsparcie --
     Unity posiada rozbudowaną dokumentację~\cite{unity_docs},
-    aktywne forum~\cite{unity_forum} oraz wiele darmowych zasobów,.
+    aktywne forum~\cite{unity_forum} oraz wiele darmowych zasobów.
 \end{citemize}
 
 Unity korzysta z języka C\#, opartego o paradygmat programowania obiektowego (ang. OOP — Object-Oriented Programming),
 polegający na tworzeniu obiektów na podstawie abstrakcji klas, a także innych obiektów~\cite{nygaard1986basic}.
 Pozwala to na tworzenie wielu obiektów o podobnych cechach, co ułatwia pisanie kodu oraz jego późniejsze utrzymanie.\\
+\indent Programowanie w silniku Unity opiera się na tzw. \textit{MonoBehaviour},
+który jest klasą bazową dla większości skryptów w Unity.
+Klasa ta pozwala na dostęp do informacji, jakie zawiera \textit{GameObject} oraz jego komponentów.
+\textit{GameObject} jest Unitowym odpowiednikiem obiektu w edytorze,
+składają się na niego komponenty, które odpowiadają za różne funkcje obiektu,
+w tym przede wszystkim \textit{Transform}, który wskazuje pozycję, rotację oraz skalę obiektu.\\
+\indent Kolejnym istotnym elementem w Unity są sceny,
+które pozwalają na posiadanie wielu kilku różnych środowisk w jednym projekcie.
+Sceny te mogą być wykorzystane do okna startowego oraz okna edytora schematu.
+Resztę elementów można wykonać jako odrębne okienka w interfejsie użytkownika w danej scenie.
+Wygląd edytora Unity przedstawiono na rys.~\ref{fig:unity_editor}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapters/chapter3/rys/unity_editor}
+    \caption[Widok okna edytora Unity]{Wygląd edytora Unity, źródło: \cite{unity_site}}
+    \label{fig:unity_editor}
+\end{figure}
 
 \subsection{Architektura programu}
 \label{subsec:architektura_programu}
@@ -53,7 +71,7 @@ Funkcje każdego z nich opisano w tab.~\ref{tab:mvvm}.
 %Przy czym po adaptacji widok-model odpowiada za nie tylko przekazywanie danych nie tylko między modelem a widokiem,
 %ale również pomiędzy innymi częściami aplikacji jako menedżer danego systemu aplikacji.
 %Sam model natomiast składa się z wielu komponentów, które przechowują dane oraz logikę danego komponentu aplikacji.
-W przypadku większych projektów model ten jest stosowany do większości komponentów składających się na aplikację.
+Przy większych projektach model ten jest stosowany do większości komponentów składających się na aplikację.
 Widok-model w tej sytuacji odpowiada za przekazywanie danych nie tylko między modelem a widokiem,
 ale również pomiędzy innymi częściami aplikacji jako menedżer danego systemu aplikacji.
 W przypadku opracowywanej aplikacji można wyróżnić trzy główne systemy dotyczące innych aspektów programu:
@@ -80,13 +98,19 @@ Zarys architektury programu przedstawiono na rys.~\ref{fig:architektura}.
     \label{fig:architektura}
 \end{figure}
 
+\newpage % TODO: check this if something changes
 \subsection{Wykorzystanie funkcji Unity oraz paczek zasobów}
 \label{subsec:zasoby}
 
-Prócz podstawowego skryptu, na jakim bazuje Unity, czyli \textit{MonoBehaviour},
+Do rysowania komórek schematów wykorzystano komponent \textit{SpriteRenderer},
+pozwalający na renderowanie dwu-wymiarowych obrazów nazywanych \textit{sprite'ami}.
+Dużą zaletą tego komponentu jest wbudowana optymalizacja ze strony Unity,
+obiektów tego typu może być wiele na scenie oraz są one renderowane tylko,
+gdy są widoczne na ekranie~\cite{unity_csharp, unity_docs}. \\
+\indent Prócz podstawowego skryptu, na jakim bazuje Unity, czyli \textit{MonoBehaviour},
 wykorzystano także \textit{ScriptableObject}.
 Jest to klasa, która pozwala na tworzenie obiektów, które mogą przechowywać,
-a nawet wykonywać prostą logikę dane poza pracą programu~\cite{unity_csharp, scriptable_docs}.
+a nawet wykonywać prostą logikę dane poza pracą programu~\cite{unity_csharp, unity_docs}.
 %Pozwala to na szczególną modularność dzięki możliwości wcześniejszego zdefiniowania danych zawartych w obiekcie
 %i co mają one robić, a następnie tworzenie obiektów na ich podstawie.
 Działanie SO jest zbliżone do klas i obiektów w OOP,
@@ -97,4 +121,43 @@ Zostało to w szczególności wykorzystane w systemach zarządzania, rysowanym s
 i narzędziami do rysowania i edycji.\\
 %W przypadku schematu SO przechowuje informacje o tym jak powinny wyglądać i zachowywać się warstwy,
 %natomiast do narzędzi SO zostały wykorzystane jako konfiguracje 
-\indent 
+\indent W celu optymalizacji wskazane jest korzystanie z asynchroniczności w programie.
+W szczególności jest to istotne podczas rysowania lub modyfikowania większych obszarów,
+ponieważ wymaga to działania na wielu komórkach.
+\textit{UniTask} do obsługi asynchroniczności,
+dostępnej na platformie GitHub~\cite{unitask}.
+Paczka ta wbudowany w C\# system asynchroniczności,
+dzięki czemu jest on znacznie optymalniejszy pod kątem wykorzystania w silniku Unity.
+
+
+\subsection{Interfejs użytkownika}
+\label{subsec:interfejs_uzytkownika}
+
+Interfejs użytkownika (ang. \textit{User Interface}) jest jednym z kluczowych elementów każdej aplikacji,
+kluczowe jest, aby był on intuicyjny oraz przejrzysty tak,
+aby użytkownik mógł skupić się na faktycznym korzystaniu z aplikacji.
+W przypadku opracowywanej aplikacji należy rozdzielić dwie warstwy programu,
+edytor schematów oraz część dotyczącą gry.
+Jako że przez większość pracy w programie użytkownik ma do czynienia z edytorem schematów,
+jest on podstawowym widokiem.
+Z kolei elementy interfejsu dotyczące gry są w formie nakładki na edytor schematów, z wyjątkiem okna startowego.
+Zarys widoku okna edytora schematów przedstawiono na rys.~\ref{fig:editor}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.89\textwidth]{chapters/chapter3/rys/ui_projekt}
+    \caption[Szkic okna edytora schematów]{Szkic okna edytora schematów, źródło: opracowanie własne.}
+    \label{fig:editor}
+\end{figure}
+
+\indent Okno dla edytora adaptuje elementy
+z programów wspomnianych w rozdziale~\ref{ch:przeglad_istniejacych_rozwiazan}.
+Tak jak w przypadku większości rozwiązań u góry okna znajduje się pasek narzędzi oraz opcji programu,
+implementujący również opcje związane z grą.
+Poniżej znajduje się obszar roboczy, gdzie użytkownik może rysować schematy.
+Na dole okna znajduje się pasek informacyjny, który zawiera informacje o aktualnie wybranym narzędziu,
+a także o możliwych dodatkowych akcjach do wykonania.
+Z prawej strony okna znajduje się panel warstw, zawierający dostępne warstwy schematu,
+a także dodatkowe informacje o nich wraz z możliwością wyłączenia ich widoczności.
+Po lewej usytuowany jest panel narzędzi, zawierający dostępne narzędzia do rysowania i edycji schematów
+i dostępne dla nich opcje.
