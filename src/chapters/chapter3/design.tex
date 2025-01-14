@@ -3,22 +3,22 @@
 
 Najistotniejsze podczas projektowania programu są założenia funkcjonalne,
 które tak naprawdę definiują późniejsze założenia techniczne oraz samo działanie aplikacji.
-Założenia te definiują obszary takie jak interfejs użytkownika, mechanizmy oraz wprowadzanie danych przez użytkownika.\\
+Założenia te definiują obszary takie jak interfejs użytkownika, mechanizmy oraz wprowadzanie danych wejściowych.\\
 \indent Głównym celem aplikacji jest umożliwienie użytkownikowi projektowanie prostych schematów układów scalonych.
 Wymaga to zaimplementowania edytora graficznego będącego w stanie przedstawić przystępnie topografię układu scalonego.
 Najbardziej intuicyjne jest wykorzystanie podejścia opierającego się na rysowaniu komórek,
 które składałyby się w elementy tworzące schemat, podobnie jak to ma miejsce w programach Magic VLSI czy Microwind.
-Aby wprowadzić podstawowe założenia projektowania układu scalonego, projektowanie oparto o technologie Amis C5,
-opracowane przez firmę Mosis,
-która definiuje rzeczywiste wymiary każdej kwadratowej komórki poprzez parametr $\lambda$
+Aby wprowadzić podstawowe założenia projektowania układu scalonego, oparto je o technologie Amis C5,
+opracowane przez firmę Mosis.
+Technologia ta definiuje rzeczywiste wymiary każdej kwadratowej komórki poprzez parametr $\lambda$
 zawarty w regułach projektowania.
 Sam wybór jakiejkolwiek technologii projektowania podyktowany
-jest próbą nauczenia skalowanie wymiarów komórek względem wymiarów rzeczywistych.
+jest próbą nauczenia skalowania wymiarów komórek względem wymiarów rzeczywistych.
 Jedne z takich reguł projektowania to \textit{SCMOS\_SUBM} o $\lambda=0,3~\um$~\cite{amis_c5, amis_params}.
 Definiują one również dostępne materiały, z których może się składać układ, parametry elementów oraz ograniczenia.
 Podstawowe materiały przedstawiono w tab.~\ref{tab:amis_materials}.
 Wybór tych materiałów powinien odbywać się poprzez paletę warstw,
-dzięki czemu użytkownik może w sposób prosty wybrać odpowiedni materiał,
+dzięki czemu użytkownik może w sposób prosty wybrać odpowiedni z nich,
 jednocześnie mając przegląd wszystkich dostępnych warstw. 
 %Zasady projektowania wskazują także najmniejsze dopuszczalne tranzystory: 3,0\um \times 0,6\um (W/L)~\cite{amis_params}.,
 %czyli po podzieleniu przez $\lambda$ otrzymujemy 10 \times 2.
@@ -51,6 +51,7 @@ jednocześnie mając przegląd wszystkich dostępnych warstw.
     \end{tabular}
 \end{table}
 
+Należy zaznaczyć również że poza samymi warstwami istotne jest także wprowadzenie połączeń między nimi.
 \indent Kolejnym istotnym aspektem jest dobór narzędzi edycji schematu.
 Powinny one być dostępne w sposób intuicyjny, być łatwe w obsłudze oraz umożliwiać większość operacji na schemacie.
 Narzędzia te można rozdzielić na dwa rodzaje: narzędzia rysujące oraz narzędzia edytujące. \\
@@ -76,7 +77,7 @@ Z podstawowych narzędzi, jakie mogą być przydatne w edytorze schematów, moż
 \end{citemize}
 
 \indent Proces rysowania jest podobny do tego w programach graficznych,
-dzięki oparciu o rysowanie komórek, co pomaga w łatwym zapoznaniu się z projektowanym edytorem.
+dzięki oparciu o rysowanie komórek, co pomaga w łatwym zapoznaniu się z edytorem.
 Przed rysowaniem wybiera się warstwę (podobnie jak kolor w programach graficznych) oraz narzędzie rysujące.
 
 \subsection{Narzędzia edytujące}
@@ -92,9 +93,9 @@ oraz odejmowanie zaznaczenia, przedstawiono je w tab.~\ref{tab:key_shortcuts}. \
 \indent Zaznaczony obszar można następnie modyfikować.
 W prostym edytorze, mającym na celu jedynie nauczyć,
 powinny wystarczyć podstawowe funkcje takie jak przesuwanie, kopiowanie, wycinanie oraz usuwanie.
-Oczywiste jest, że funkcje te będą miały swoje przypisania klawiszy, co pozwoli na szybsze operowanie na schemacie. \\
+Operacje te, również będą miały swoje przypisania klawiszy, co pozwoli na szybsze operowanie na schemacie. \\
 \indent Istotną funkcją jest także możliwość cofania ostatnich operacji,
-natomiast ze względu na prostotę edytora ilość operacji, które można cofnąć, powinna być ograniczona,
+natomiast ze względu na prostotę edytora ilość cofnięć, powinna być ograniczona,
 co pozwoli także na uproszczenie programu od strony technicznej. % TODO: dodać ilość kroków cofania
 
 \begin{table}[h]
