@@ -1,0 +1,32 @@
+\begin{lstlisting}[language={C},label=lst:draw_interpolate,caption={Metoda \texttt{DrawInterpolate} interpolująca pomiędzy dwoma punktami}]
+private void DrawInterpolate(float dX, float dY) {
+    var axis = dX > dY ? 1 : 0; // 1 - horizontal axis, 0 - vertical axis
+    var dirX = _gridPos.x > _oldGridPos.x ? 1 : -1;
+    var dirY = _gridPos.y > _oldGridPos.y ? 1 : -1;
+    if ((int)dX == 0 || (int)dY == 0) {
+        StraightLine((int)dX, (int)dY);
+        return;
+    }
+    var step = dX > dY ? dX / dY : dY / dX;
+    float rest = 0f;
+    float sum = 0f;
+    var bigger = dX > dY ? dX : dY;
+    var curX = _oldGridPos.x;
+    var curY = _oldGridPos.y;
+    while (sum < bigger) {
+        rest += step;
+        var amount = (int)Mathf.Floor(rest);
+        rest -= amount;
+        if (axis == 1) // horizontal {
+            DrawForHorizontal(amount, dirX, curX, curY);
+            curY += dirY;
+        }
+        else // vertical {
+            DrawForVertical(amount, dirY, curX, curY);
+            curX += dirX;
+        }
+        sum += step;
+    }
+    Draw(_gridPos.x, _gridPos.y); // make sure to draw the last pixel  
+}
+\end{lstlisting}

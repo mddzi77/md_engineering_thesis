@@ -49,6 +49,7 @@ Ponieważ w wielu przypadkach potrzebne będzie stworzenie wielu komórek naraz,
 w trakcie działania programu, co klatkę tworzy się jedynie kilka nieaktywnych obiektów, które są następnie przechowywane w puli.
 Gdy potrzebny jest nowy obiekt, pobiera się go z puli i aktywuje, a gdy nie jest już potrzebny,
 zamiast go usuwać, jest on dezaktywowany i przenoszony z powrotem do puli.
+W przypadku gdy w puli brakuje obiektów, tworzy ona nowe i zwraca je bezpośrednio w metodzie pobierającej obiekt.
 Do implementacji tego mechanizmu stworzono komponent \texttt{CellsPool},
 posiadający listę struktur \texttt{PoolData} dla każdej z warstw.
 Struktura ta przechowuje informację o tym, dla jakiej warstwy jest pula oraz samą pulę obiektów.
@@ -62,6 +63,7 @@ Zawiera on informacje o nazwie warstwy, jej kolejności na schemacie, jaki sprit
 zasady projektowania (minimalna odległość między niesąsiadującymi komórkami, minimalna szerokość)
 oraz maksymalną wielkość puli komórek.
 Dzięki temu można w łatwy sposób tworzyć nowe warstwy, a także modyfikować definicje już istniejących.
+Nazwa warstwy jest również wykorzystywana jako tag dla komórek, co pozwala na późniejsze ich rozróżnienie.
 Dodatkowo \texttt{LayerConfig} jest używany jako klucz do identyfikacji warstwy w innych komponentach.
 Przykład takiej konfiguracji przedstawiono na rys.~\ref{fig:layer_config}.
 
@@ -85,14 +87,17 @@ Z jego głównych funkcji można wymienić:
     \item Tworzenie warstw na podstawie konfiguracji z \texttt{LayerConfig},
     \item Przechowywanie referencji do wszystkich warstw,
     \item Wybór oraz zwracanie obecnie rysowanej warstwy,
-    \item Włączanie i wyłączanie warstw,
+    \item Włączanie i wyłączanie warstw (gdy warstwa jest wyłączona, nie można na niej rysować oraz jest niewykrywana),
     \item Pośredniczenie przy zwracaniu komórek do puli.
 \end{citemize}
+
 
 Aby zdefiniowane w plikach konfiguracyjnych warstwy były użyte w programie,
 należało je przypisać do \texttt{LayersManager} w inspektorze Unity w obiekcie \textit{Layers} tak jak na rys.~\ref{fig:layers}.
 Na tym samym obiekcie znajduje się także \texttt{CellsPool},
 natomiast reszta elementów jest doładowywana w trakcie działania programu.
+
+\newpage % TODO: check this if something changes
 
 \begin{figure}[h]
     \centering
@@ -102,9 +107,8 @@ natomiast reszta elementów jest doładowywana w trakcie działania programu.
     \label{fig:layers}
 \end{figure}
 
-\newpage % TODO: check this if something changes
-
-Ze względu na istotność komponentu \texttt{LayersManager}, zdecydowano się na zastosowanie wzorca projektowego \textit{Singleton},
+Ze względu na istotność komponentu \texttt{LayersManager},
+zdecydowano się na zastosowanie wzorca projektowego \textit{Singleton}~\cite{unity_csharp},
 dzięki czemu jest on dostępny z każdego miejsca w programie
 oraz implikuje posiadanie tylko jednej instancji tego obiektu w trakcie działania programu.
 W przypadku Unity, ze względu na to, że klasą bazową komponentów jest \texttt{MonoBehaviour},

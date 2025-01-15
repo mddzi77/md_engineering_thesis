@@ -1,0 +1,11 @@
+\begin{lstlisting}[language={C},label=lst:movement_update,caption={Metoda \texttt{MovementUpdate} aktualizująca pozycję narzędzia przesuwania}]
+private void MovementUpdate() {
+    var gridPosition = MouseGrid.GridPos;
+    var position = transform.position;
+    position.x = gridPosition.x;
+    position.y = gridPosition.y;
+    transform.position = position;
+    SizeX = (int) (gridPosition.x - _dragOrigin.x);
+    SizeY = (int) (gridPosition.y - _dragOrigin.y);
+}
+\end{lstlisting}

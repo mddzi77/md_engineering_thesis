@@ -1,0 +1,7 @@
+\begin{lstlisting}[language={C},label=lst:drag_update,caption={Metoda \texttt{DragUpdate} używana w narzędziach obszarowych}]
+private void ModifyBounds(float deltaX, float deltaY) {
+    detector.size = new Vector3(deltaX-0.1f, deltaY-0.1f, 0.1f);
+    detector.center = new Vector3(deltaX / 2, deltaY / 2, 0);
+    layerSprite.size = new Vector2(deltaX, deltaY);
+}
+\end{lstlisting}
