@@ -1,0 +1,44 @@
+\begin{lstlisting}[language={C},label=lst:pooling,caption={Metody do pobnierania i zwracanie obiektów z puli
+oraz inicjalizacji komórek.}]
+public static GameObject GetCell(LayerConfig layerConfig)
+{
+    var pool = _pools.Find(p => p.layerConfig == layerConfig).pool;
+    if (pool.Count == 0)
+    {
+        return InstantiateCell(layerConfig);
+    }
+    return pool.Dequeue();
+}
+public static void ReturnCell(LayerConfig layerConfig, GameObject cell)
+{
+    var pool = _pools.Find(p => p.layerConfig == layerConfig).pool;
+    cell.transform.SetParent(instance.poolParent, false);
+    cell.SetActive(false);
+    pool.Enqueue(cell);
+}
+private static GameObject InstantiateCell(LayerConfig layerConfig)
+{
+    var cell = new GameObject
+    {
+        name = "Cell",
+        transform =
+        {
+            parent = instance.poolParent
+        }
+    };
+    cell.SetActive(false);
+    cell.tag = layerConfig.LayerName;
+    cell.layer = LayerMask.NameToLayer("Tile");
+        
+    var spriteRenderer = cell.AddComponent<SpriteRenderer>();
+    spriteRenderer.sprite = layerConfig.Sprite;
+    spriteRenderer.material = instance.material;
+    spriteRenderer.color = layerConfig.Color;
+    
+    var collider = cell.AddComponent<BoxCollider>();
+    collider.size = new Vector3(1, 1, 0.1f);
+    collider.center = new Vector3(0.5f, 0.5f, 0);
+        
+    return cell;
+}
+\end{lstlisting}

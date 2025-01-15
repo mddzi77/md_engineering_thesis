@@ -89,14 +89,16 @@ stąd potrzeba narzędzia zaznaczającego.
 Opierać się ono powinno na takiej samej zasadzie działania jak narzędzie rysowania prostokątnego obszaru,
 dzięki czemu użytkownik nie musi zapamiętywać kilku różnych mechanizmów.
 Dodatkowo powinny istnieć skróty klawiszowe pozwalające na samo modyfikowanie obszaru poprzez dodawanie
-oraz odejmowanie zaznaczenia, przedstawiono je w tab.~\ref{tab:key_shortcuts}. \\
-\indent Zaznaczony obszar można następnie modyfikować.
-W prostym edytorze, mającym na celu jedynie nauczyć,
-powinny wystarczyć podstawowe funkcje takie jak przesuwanie, kopiowanie, wycinanie oraz usuwanie.
+oraz odejmowanie zaznaczenia, przedstawiono je w tab.~\ref{tab:key_shortcuts}.
+Zaznaczony obszar można następnie modyfikować, poprzez narzędzie przesuwania.
 Operacje te, również będą miały swoje przypisania klawiszy, co pozwoli na szybsze operowanie na schemacie. \\
-\indent Istotną funkcją jest także możliwość cofania ostatnich operacji,
-natomiast ze względu na prostotę edytora ilość cofnięć, powinna być ograniczona,
-co pozwoli także na uproszczenie programu od strony technicznej. % TODO: dodać ilość kroków cofania
+\indent Istotnymi funkcjami jest też oznaczanie istotnych miejsc na schemacie, takich jak kontakty między warstwami,
+czy wejście zasilania i masy.
+Mimo tego, że są one elementami samego schematu i mogą być narysowane,
+to powinny być one wyróżnione poprzez skategoryzowanie jako odrębne narzędzia.
+%\indent Istotną funkcją jest także możliwość cofania ostatnich operacji,
+%natomiast ze względu na prostotę edytora ilość cofnięć, powinna być ograniczona,
+%co pozwoli także na uproszczenie programu od strony technicznej. % TODO: dodać ilość kroków cofania
 
 \begin{table}[h]
     \centering
@@ -114,6 +116,12 @@ co pozwoli także na uproszczenie programu od strony technicznej. % TODO: dodać
         \cline{2-3}
         & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i końcowego obszaru \\
         \hline
+        \texttt{E} & \multicolumn{2}{|l|}{Gumka} \\
+        \hline
+        \texttt{W} & \multicolumn{2}{|l|}{Usuwanie prostokątnego obszaru} \\
+        \cline{2-3}
+        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i końcowego obszaru \\
+        \hline
         \texttt{S} & \multicolumn{2}{|l|}{Zaznaczanie obszaru poprzez przeciąganie} \\
         \cline{2-3}
         & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i końcowego obszaru \\
@@ -122,18 +130,29 @@ co pozwoli także na uproszczenie programu od strony technicznej. % TODO: dodać
         \cline{2-3}
         & \texttt{Alt} & Przytrzymanie pozwala na odejmowanie zaznaczenia \\
         \hline
-        \texttt{Ctrl + Z} & \multicolumn{2}{|l|}{Cofanie ostatniej operacji} \\
+        \texttt{M} & \multicolumn{2}{|l|}{Przesuwanie zaznaczonego obszaru} \\
         \hline
-        \texttt{Ctrl + Y} & \multicolumn{2}{|l|}{Ponawianie cofniętej operacji} \\
+        \texttt{C} & \multicolumn{2}{|l|}{Zaznaczanie kontaktów} \\
+        \cline{2-3}
+        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i końcowego obszaru \\
         \hline
-        \texttt{Delete} & \multicolumn{2}{|l|}{Usuwanie zaznaczonego elementu} \\
+        \texttt{D} & \multicolumn{2}{|l|}{Zaznaczanie zasilania} \\
         \hline
-        \texttt{Ctrl + X} & \multicolumn{2}{|l|}{Wycinanie zaznaczonego elementu} \\
+        \texttt{G} & \multicolumn{2}{|l|}{Zaznaczanie masy} \\
         \hline
-        \texttt{Ctrl + C} & \multicolumn{2}{|l|}{Kopiowanie zaznaczonego elementu} \\
-        \hline
-        \texttt{Ctrl + V} & \multicolumn{2}{|l|}{Wklejanie skopiowanego/wyciętego elementu} \\
-        \hline
+%        \hline
+%        \texttt{Ctrl + Z} & \multicolumn{2}{|l|}{Cofanie ostatniej operacji} \\
+%        \hline
+%        \texttt{Ctrl + Y} & \multicolumn{2}{|l|}{Ponawianie cofniętej operacji} \\
+%        \hline
+%        \texttt{Delete} & \multicolumn{2}{|l|}{Usuwanie zaznaczonego elementu} \\
+%        \hline
+%        \texttt{Ctrl + X} & \multicolumn{2}{|l|}{Wycinanie zaznaczonego elementu} \\
+%        \hline
+%        \texttt{Ctrl + C} & \multicolumn{2}{|l|}{Kopiowanie zaznaczonego elementu} \\
+%        \hline
+%        \texttt{Ctrl + V} & \multicolumn{2}{|l|}{Wklejanie skopiowanego/wyciętego elementu} \\
+%        \hline
     \end{tabular}
 \end{table}\
 
