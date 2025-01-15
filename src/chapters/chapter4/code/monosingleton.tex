@@ -1,0 +1,15 @@
+\begin{lstlisting}[language={C},label=lst:monosingleton,caption={Klasa \texttt{MonoSingleton}}]
+public class MonoSingleton<T> : MonoBehaviour where T : Component
+{
+    public static T Instance => _instance;
+    
+    private static T _instance;
+    
+    protected void Awake()
+    {
+        if (_instance != null && _instance != this as T)
+            throw new Exception($"Singleton already exists! : {_instance.name}");
+        _instance = this as T;
+    }
+}
+\end{lstlisting}

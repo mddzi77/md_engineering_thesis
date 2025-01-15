@@ -27,12 +27,12 @@ co znacząco upraszcza pisanie kodu i jego późniejszą konserwację.\\
 %Unity korzysta z języka C\#, opartego o paradygmat programowania obiektowego (ang. OOP -- Object-Oriented Programming),
 %polegający na tworzeniu obiektów na podstawie abstrakcji klas, a także innych obiektów~\cite{nygaard1986basic}.
 %Pozwala to na tworzenie wielu obiektów o podobnych cechach, co ułatwia pisanie kodu oraz jego późniejsze utrzymanie.\\
-\indent Programowanie w silniku Unity opiera się na tzw. \textit{MonoBehaviour},
+\indent Programowanie w silniku Unity opiera się na tzw. \texttt{MonoBehaviour},
 który jest klasą bazową dla większości skryptów w Unity.
-Klasa ta pozwala na dostęp do informacji, jakie zawiera \textit{GameObject} oraz jego komponentów.
-\textit{GameObject} jest natomiast Unitowym odpowiednikiem obiektu w edytorze,
+Klasa ta pozwala na dostęp do informacji, jakie zawiera \texttt{GameObject} oraz jego komponentów.
+\texttt{GameObject} jest natomiast Unitowym odpowiednikiem obiektu w edytorze,
 składają się na niego komponenty, które odpowiadają za różne funkcje, jakie on pełni,
-w tym przede wszystkim \textit{Transform}, który wskazuje pozycję, rotację oraz skalę obiektu.\\
+w tym przede wszystkim \texttt{Transform}, który wskazuje pozycję, rotację oraz skalę obiektu.\\
 \indent Kolejnym istotnym elementem w Unity są sceny,
 które pozwalają na posiadanie wielu kilku różnych środowisk w jednym projekcie.
 Sceny te mogą być wykorzystane do okna startowego oraz okna edytora schematu.
@@ -109,13 +109,13 @@ Zarys architektury programu przedstawiono na rys.~\ref{fig:architektura}.
 \subsection{Wykorzystanie funkcji Unity oraz paczek zasobów}
 \label{subsec:zasoby}
 
-Do rysowania komórek schematów wykorzystano komponent \textit{SpriteRenderer},
+Do rysowania komórek schematów wykorzystano komponent \texttt{SpriteRenderer},
 pozwalający na renderowanie dwu-wymiarowych obrazów nazywanych \textit{sprite'ami}.
 Dużą zaletą tego komponentu jest wbudowana optymalizacja ze strony Unity.
 Obiektów tego typu może być wiele na scenie oraz są one renderowane tylko,
 gdy są widoczne na ekranie~\cite{unity_csharp, unity_docs}. \\
-\indent Prócz podstawowego skryptu, na jakim bazuje Unity, czyli \textit{MonoBehaviour},
-wykorzystano także \textit{ScriptableObject}.
+\indent Prócz podstawowego skryptu, na jakim bazuje Unity, czyli \texttt{MonoBehaviour},
+wykorzystano także \texttt{ScriptableObject}.
 Jest to klasa, która pozwala na tworzenie obiektów, które mogą przechowywać dane zdefiniowane poza pracą programu,
 a nawet wykonywać prostą logikę~\cite{unity_csharp, unity_docs}.
 %Pozwala to na szczególną modularność dzięki możliwości wcześniejszego zdefiniowania danych zawartych w obiekcie
