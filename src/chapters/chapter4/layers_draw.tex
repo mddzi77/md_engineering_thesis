@@ -10,6 +10,7 @@ Ponieważ warstwy oraz ich rysowanie są kluczowymi elementami, definiującymi d
 a zarazem stanowią najbardziej obciążającą komputer część projektu,
 należało rozpatrzyć kilka rozwiązań, które można zaimplementować do przedstawiania rysowanego schematu,
 pod kątem optymalizacja oraz współdziałania z resztą programu.\\
+
 \indent Jednym z najprostszych sposobów do zapisania danych warstwy to tablica dwuwymiarowa,
 gdzie każdy element tablicy odpowiada jednemu kwadratowi na siatce.
 %Jeszcze lepiej podzielić taką tablicę na kilka mniejszych oraz przenieść ją do jednego wymiaru.
@@ -38,17 +39,18 @@ W połączeniu z tym rozwiązaniem można wyróżnić dwie metody rysowania wars
 %aby nie doszło do sytuacji, gdzie sprite'y się nakładają.
 Niestety powyższe rozwiązania wymagają ciągłego iterowania po całej tablicy nawet przy modyfikacji jednego elementu
 i albo dodatkowego przetrzymywania referencji, albo ciężkiego obliczeniowo rysowania całej warstwy od nowa.
-W związku z tym wybrano inne rozwiązanie, polegające na wykorzystaniu systemu fizyki w silniku Unity,
+W związku z tym wybrano inne rozwiązanie, polegające na wykorzystaniu systemu fizyki\linebreak w silniku Unity,
 który pozwala na wykrywanie kolizji pomiędzy obiektami.
-Daje to możliwość na niezależne wykrywanie komórek bez potrzeby referencji do nich i ich położenia,
-znacząco upraszczając zarządzanie nimi oraz proces rysowania.
+Daje to możliwość na niezależne wykrywanie komórek bez potrzeby referencji do nich\linebreak i ich położenia,
+znacząco upraszczając zarządzanie nimi oraz proces rysowania.\linebreak
 W tym celu do obiektu komórki prócz komponentu \texttt{SpriteRenderer} dodano komponent \texttt{BoxCollider},
 dzięki czemu obiekt ten może być wykrywany przez system fizyki.\\
-\indent Kolejny sposobem na optymalizację jest wykorzystanie puli obiektów.
+\indent Kolejnym sposobem na optymalizację jest wykorzystanie puli obiektów.
 Ponieważ w wielu przypadkach potrzebne będzie stworzenie wielu komórek naraz, co jest kosztowne obliczeniowo,
-w trakcie działania programu, co klatkę tworzy się jedynie kilka nieaktywnych obiektów, które są następnie przechowywane w puli.
-Gdy potrzebny jest nowy obiekt, pobiera się go z puli i aktywuje, a gdy nie jest już potrzebny,
-zamiast go usuwać, jest on dezaktywowany i przenoszony z powrotem do puli.
+w trakcie działania programu, co klatkę tworzy się jedynie kilka nieaktywnych obiektów,
+które są następnie przechowywane w puli.
+Gdy potrzebny jest nowy obiekt, pobiera się go z puli i aktywuje, gdy nie jest już potrzebny,
+jest on dezaktywowany i przenoszony z powrotem do puli.\linebreak
 W przypadku gdy w puli brakuje obiektów, tworzy ona nowe i zwraca je bezpośrednio w metodzie pobierającej obiekt.
 Do implementacji tego mechanizmu stworzono komponent \texttt{CellsPool},
 posiadający listę struktur \texttt{PoolData} dla każdej z warstw.
@@ -56,9 +58,10 @@ Struktura ta przechowuje informację o tym, dla jakiej warstwy jest pulą oraz s
 Do przetrzymywania tworzonych instancji wykorzystano klasę \texttt{Queue},
 jest to struktura danych FIFO (ang. \textit{First In, First Out}),
 która pozwala na dodawanie elementów na koniec kolejki oraz usuwanie z jej początku.
-Aby uporządkować w hierarchii w edytorze wszystkie tworzone w puli obiekty,
-jako swojego rodzica mają ustawiony obiekt \texttt{CellsPool}\\
-\indent Do definiowania warstw stworzono \texttt{ScriptableObject}, \texttt{LayerConfig}.
+%Aby uporządkować\linebreak w hierarchii w edytorze wszystkie tworzone w puli obiekty,
+%jako swojego rodzica mają ustawiony obiekt \texttt{CellsPool}\\
+Wszystkie obiekty w puli mają ustawionego rodzica \texttt{CellsPool} w celu uporządkowania hierarchii w edytorze.\\
+\indent Do definiowania warstw stworzono \texttt{ScriptableObject}, \texttt{LayerConfig}.\linebreak
 Zawiera on informacje o nazwie warstwy, jej kolejności na schemacie, jaki sprite ma być rysowany, kolor,
 zasady projektowania (minimalna odległość między niesąsiadującymi komórkami, minimalna szerokość)
 oraz maksymalną wielkość puli komórek.

@@ -17,7 +17,6 @@ Z wielu zalet silnika Unity, kluczowe dla niniejszego projektu są:
     aktywne forum~\cite{unity_forum} oraz wiele darmowych zasobów.
 \end{citemize}
 
-
 Unity korzysta z języka C\#,
 który bazuje na paradygmacie programowania obiektowego (ang. OOP — Object-Oriented Programming).
 OOP opiera się na definiowaniu klas jako abstrakcji oraz tworzeniu ich instancji,
@@ -62,7 +61,7 @@ Funkcje każdego z nich opisano w tab.~\ref{tab:mvvm}.
     \caption[Opis funkcji poszczególnych elementów architektury MVVM.]
     {Opis funkcji poszczególnych elementów architektury MVVM, źródło:~\cite{mvvm}.}
     \label{tab:mvvm}
-    \begin{tabular}{|c|p{0.6\textwidth}|}
+    \begin{tabular}{|c|p{0.8\textwidth}|}
         \hline
         Element & Opis \\
         \hline
@@ -87,7 +86,7 @@ ale również pomiędzy innymi częściami wewnątrz aplikacji jako menedżer da
 W przypadku opracowywanego programu można wyróżnić cztery główne systemy dotyczące różnych aspektów aplikacji:
 
 \begin{citemize}
-    \item System zarządzania progresem gry, odpowiadający za kontrolę przebiegu gry,
+    \item System zarządzania progresem gry, odpowiadający za kontrolę przebiegu gry,\linebreak
     a także punktację oraz weryfikację poziomów,
     \item Narzędzia do rysowania i edycji, wybieranie ich oraz kontrola ich działania,
     \item System zarządzania rysowanym schematem,
@@ -103,7 +102,7 @@ Zarys architektury programu przedstawiono na rys.~\ref{fig:architektura}.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.9\textwidth]{chapters/chapter3/rys/arch}
+    \includegraphics[width=\textwidth]{chapters/chapter3/rys/arch}
     \caption[Architektura programu.]{Architektura programu, źródło: opracowanie własne.}
     \label{fig:architektura}
 \end{figure}
@@ -123,7 +122,7 @@ Jest to klasa, która pozwala na tworzenie obiektów, które mogą przechowywać
 a nawet wykonywać prostą logikę~\cite{unity_csharp, unity_docs}.
 %Pozwala to na szczególną modularność dzięki możliwości wcześniejszego zdefiniowania danych zawartych w obiekcie
 %i co mają one robić, a następnie tworzenie obiektów na ich podstawie.
-Działanie SO jest zbliżone do klas i obiektów w OOP,
+Działanie SO jest zbliżone do klas i obiektów\linebreak w OOP,
 przy czym SO jest wykorzystywany przede wszystkim w edytorze Unity.
 Dzięki temu można wcześniej zdefiniować jaki rodzaj danych powinien przechowywać dany typ obiektu,
 a następnie tworzyć na ich podstawie konkretne instancje, których dane można zmieniać w edytorze.
@@ -137,7 +136,7 @@ ponieważ wymaga to działania na wielu komórkach.
 Skorzystano tutaj z paczki zasobów \textit{UniTask} do obsługi asynchroniczności,
 dostępnej na platformie GitHub~\cite{unitask}.
 Paczka ta adaptuje wbudowany w C\# system asynchroniczności,
-dzięki czemu jest on znacznie optymalniejszy pod kątem wykorzystania w silniku Unity.
+dzięki czemu jest on znacznie optymalniejszy pod kątem wykorzystania\linebreak w silniku Unity.
 
 
 \subsection{Interfejs użytkownika}
@@ -148,7 +147,7 @@ kluczowe jest, aby był on intuicyjny oraz przejrzysty tak,
 aby użytkownik mógł skupić się na korzystaniu z programu.
 W przypadku opracowywanej aplikacji należy rozdzielić ją na dwie warstwy,
 edytor schematów oraz część dotyczącą gry.
-Jako że przez większość pracy w programie użytkownik ma do czynienia z edytorem schematów,
+Jako że przez większość pracy w programie użytkownik ma do czynienia\linebreak z edytorem schematów,
 jest on podstawowym widokiem.
 Z kolei elementy interfejsu dotyczące gry powinny być w formie nakładki na edytor schematów,
 z wyjątkiem okna startowego, który będzie odrębną sceną, przez co nie ma potrzeby tworzenia nakładki.
