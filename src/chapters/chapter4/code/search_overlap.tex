@@ -1,0 +1,32 @@
+\begin{lstlisting}[language={C},label=lst:search_overlap,caption={Metoda \texttt{SearchOverlap} wykrywające sąsiadujące obiekty}]
+private async UniTask SearchByOverlap(Vector3 center, Node node) {
+    center.x += 0.5f;
+    center.y += 0.5f;
+    var overlaps = Physics.OverlapBox(center, _overlapSize);
+    foreach (var overlap in overlaps) {
+        if (CheckForVss(overlap.transform.position)) node.ChangeID("vss");
+        if (overlap.gameObject.CompareTag("Contact"))  {
+            if (node.Contacts.Contains(overlap.gameObject)) continue;
+            node.Contacts.Add(overlap.gameObject);
+            overlap.gameObject.SetActive(false);
+        }
+        else if (overlap.gameObject.CompareTag("P Transistor")) {
+            var pTransistor = FindPTransistor(overlap.gameObject);
+            if (node.PTransistors.Contains(pTransistor)) continue;
+            ConnectTransistor(node, pTransistor, overlap.transform.position);
+        }
+        else if (overlap.gameObject.CompareTag("N Transistor")) {
+            var nTransistor = FindNTransistor(overlap.gameObject);
+            if (node.NTransistors.Contains(nTransistor)) continue;
+            ConnectTransistor(node, nTransistor, overlap.transform.position);
+        }
+        else {
+            var position = overlap.transform.position;
+            node.Cells.Add(overlap.gameObject);
+            overlap.gameObject.SetActive(false);
+            await SearchByOverlap(position, node);
+        }
+    }
+}
+
+\end{lstlisting}

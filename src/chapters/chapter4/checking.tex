@@ -16,7 +16,7 @@ Przykładowe wymagania dla poziomu 1 przedstawiono na rys.~\ref{fig:level1_requi
 \end{figure}
 
 Za sprawdzanie poprawności schematu odpowiada komponent \texttt{CheckerManager}, dziedziczący po \texttt{MonoSingleton}.
-Zadaniem tego komponentu jest wywołanie komponentu walidującego narysowany schemat,
+Zadaniem tego komponentu jest wywołanie skryptu walidującego narysowany schemat,
 a następnie porównanie wyników z wymaganiami poziomu.
 Na tej podstawie decyduje, czy schemat jest poprawny, czy też nie
 i wywołuje okno wyników, które informuje użytkownika o rezultacie.
@@ -33,3 +33,76 @@ przy wykorzystaniu \texttt{Physics.Raycast}.
 Komórka ta pełni funkcję punktu startowego w algorytmie znajdywania połączeń.\\
 \indent Przed połączeniami, w pierwszej kolejności znajdywane są wszystkie tranzystory na schemacie.
 W tym celu z \texttt{LayersManager} pobierane są wszystkie komórki z warstwy \textit{Poly Crystal}.
+Dla każdej z komórek sprawdzane jest, 
+czy znajduje się pod nią komórka z warstwy \textit{N Diffusion} lub \textit{P Diffusion}.
+Do tego celu wykorzystywana jest kolejna funkcja z zasobu systemu fizyki Unity, \texttt{Physics.OverlapBox},
+wykrywa ona obiektyw będące w lub stykające się z podanym obszarem.
+Jeśli udało się wykryć komórkę z warstw dyfuzyjnych, to znaczy, że znaleziono część tranzystora.
+Tworzony jest wtedy nowy obiekt dziedziczący po klasie \texttt{Transistor}, \textt{NTransistor} lub \texttt{PTransistor},
+odpowiednio dla tranzystorów nMOS lub pMOS.
+W konstruktorze natomiast przekazywane są obecne komórki warstwy polikrystalicznej i dyfuzyjnej.
+Obiekt ten ma na celu przechowywanie informacji o tranzystorze oraz wykrycie własnych parametrów.
+Po jego utworzeniu wywoływana jest w nim metoda \texttt{FindRest}.
+Na podstawie przekazanych wcześniej komórek, ponownie stosując \texttt{Physics.OverlapBox},
+znajdywane są sąsiadujące komórki warstw dyfuzyjnej i polikrystalicznej, które się na siebie nakładają.
+Aby znaleźć wszystkie komórki, które należą do tranzystora, wykorzystywana jest rekurencja.
+Każda znaleziona komórka również próbuje znaleźć sąsiadujące z nią komórki.
+Aby uniknąć ponownego wykrycia, komórki po znalezieniu są wyłączane,
+dzięki czemu \texttt{Physics.OverlapBox} ich nie wykryje.
+Po wyśledzeniu wszystkich komórek, które należą do tranzystora,
+w ich miejsce wstawiany jest GO z \texttt{BoxCollider}'em o wymiarach tranzystora,
+do których referencje są przechowywane w obiekcie tranzystora.
+Dzięki temu znacząco uproszczone będzie wykrycie połączeń z tranzystorami.
+Przy ustawianiu rozmiaru komponentu \texttt{BoxCollider}, przy okazji obliczane są wymiary bramki tranzystora,
+Główny kod funkcji do znajdywania tranzystorów przedstawiona jest na listingu~\ref{lst:find_transistors}.
+Aby uniknąć zawieszenia się pętli programu,
+zastosowano przy wyszukiwaniu komórek tranzystora system asynchroniczności \textit{UniTask}.
+
+\input{chapters/chapter4/code/find_transistors}
+
+Po znalezieniu wszystkich tranzystorów wywoływana jest funkcja \texttt{StartSearch}.
+Rozpoczyna ona przeszukiwanie połączeń od komórki pod oznaczeniem $V_{DD}$.
+W pierwszej kolejności tworzony jest obiekt węzła \texttt{Node}, oznaczony jako \textit{vdd},
+który przechowuje w listach wszystkie znalezione komórki,
+kontakty oraz tranzystory typu p i n.
+Następnie wywoływana jest metoda \texttt{SearchByOverlap},
+której przekazywana jest pozycja startowej komórki oraz obecny węzeł.
+Ma ona za zadanie znaleźć wszystkie obiekty sąsiadujące z obecnym,
+na podstawie \texttt{Physics.OverlapBox}.
+i zapisanie ich do odpowiednich list w obiekcie \texttt{Node}.\\
+\indent W przypadku znalezienia tranzystora należy połączyć go z węzłem,
+co jest wykonywane przez funkcję \texttt{ConnectTransistor}.
+W obiekcie \texttt{Transistor} do wolnego pinu jest przekazywany obecny węzeł,
+przy czym zapisywane jest także, po jakiej stronie tranzystora znajduje się ten pin,
+jak również to, że drugi wolny pin jest po przeciwnej stronie.\\
+\indent Gdy znalezionym obiektem w funkcji \texttt{SearchByOverlap} jest komórka,
+dla niej również wywoływana jest ta funkcja, a jako \texttt{Node} przekazywany jest ten obecnie przeszukiwany.
+Aby uniknąć ponownego wykrywania, podobnie jak w przypadku tranzystorów,
+już wykryte komórki są wyłączane.\\
+\indent Gdy znaleziono wszystkie obiekty dla danej warstwy,
+w przypadku gdy znaleziono kontakty, ponawia się przeszukiwanie, dla tej warstwy, z którą występuje połączenie.
+Natomiast dla każdego ze znalezionych tranzystorów,
+tworzony jest nowy węzeł po stronie wolnego pinu tranzystora,
+do którego jest też automatycznie podłączany.
+Następnie cały proces jest powtarzany dla nowego węzła.
+Dla każdej badanej pozycji jest także dodatkowo sprawdzanie, czy nie pokrywa się z oznaczeniem $V_{SS}$.
+Jeśli tak, to obecny węzeł jest oznaczany jako \textit{vss}.
+Proces znajdywania połączeń jest powtarzany, aż do momentu,
+gdy nie będzie już możliwe wykrycie nowych obiektów.
+Główną funkcję \texttt{SearchByOverlap} odpowiedzialną za przeszukiwanie przedstawiono na listingu~\ref{lst:search_overlap}.
+Ponownie zastosowano tutaj system asynchroniczności \textit{UniTask}.
+
+\input{chapters/chapter4/code/search_overlap}
+
+\subsection{Finalizacja sprawdzania}
+\label{subsec:finalizacja_sprawdzania}
+
+Po zakończeniu walidacji przez \texttt{TopographyValidator} wywołuje on wydarzenie \texttt{OnValidationEnd},
+w którym przekazuje wszystkie wykryte tranzystory, wraz z ich połączeniami i wymiarami.
+Iterując po elementach zawartych w wymaganiach poziomu,
+porównuje się je z wykrytymi tranzystorami.
+Gdy któryś z tranzystorów spełnia jedno z wymagań, jest usuwany z listy wykrytych.
+Jeśli pod koniec w liście wykrytych tranzystorów nie ma już żadnych elementów,
+to znaczy, że schemat jest poprawny.
+Wyświetlane jest wtedy okno informujące o sukcesie.
+W przeciwnym wypadku gdy pozostały jeszcze tranzystory, to znaczy, że schemat jest niepoprawny.

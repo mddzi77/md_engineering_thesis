@@ -1,0 +1,34 @@
+\begin{lstlisting}[language={C},label=lst:find_transistors,caption={Metoda \texttt{FindTransistors} wyszukjąca tranzystory na schemacie}]
+private async UniTask FindTransistors() {
+    var polys = LayersManager.Instance.LayerHolders[polyLayer].Cells;
+    List<GameObject> usedPolys = new();
+    Vector3 overlapSize = new Vector3(0.45f, 0.45f, 0.6f);
+    foreach (var poly in polys) {
+        if (usedPolys.Contains(poly)) continue;
+        var position = poly.transform.position;
+        position.x += 0.5f;
+        position.y += 0.5f;
+        position.z += 0.5f;
+        var overlaps = Physics.OverlapBox(position, overlapSize);
+        foreach (var overlap in overlaps) {
+            if (overlap.gameObject.CompareTag("P Diffusion")) {
+                var pTransistor = new PTransistor(poly, overlap.gameObject); 
+                await pTransistor.FindRest();
+                pTransistor.CreateCollider().Forget();
+                usedPolys.AddRange(pTransistor.Polys);
+                _pTransistors.Add(pTransistor);
+            }
+            else if (overlap.gameObject.CompareTag("N Diffusion")) {
+                var nTransistor = new NTransistor(poly, overlap.gameObject);
+                await nTransistor.FindRest();
+                nTransistor.CreateCollider().Forget();
+                usedPolys.AddRange(nTransistor.Polys);
+                _nTransistors.Add(nTransistor);
+            }
+        }
+    }
+    await UniTask.Yield();
+    await UniTask.Yield();
+}
+
+\end{lstlisting}

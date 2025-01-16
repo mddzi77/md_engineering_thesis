@@ -181,14 +181,16 @@ Mechanika gry ma na celu nauczenie użytkownika podstaw projektowania układów 
 jednocześnie starając się nie skomplikować samego procesu projektowania.
 Tak samo, jak w grach typu puzzle, gra będzie składać się z poziomów,
 które będą stopniowo wprowadzać użytkownika w proces projektowania.
-Każdy z poziomów będzie posiadał wymagania w formie schematu elektrycznego oraz opisowej instrukcji.
+Każdy z poziomów będzie posiadał wymagania w formie listy komponentów,
+gdzie powinny być podłączone oraz jakie mają mieć parametry.
+%w formie schematu elektrycznego oraz opisowej instrukcji.
 Gdy użytkownik uzna, że spełnił wymagania, będzie mógł sprawdzić swoje rozwiązanie,
 które zostanie zweryfikowane przez system sprawdzający.
-W przypadku błędów punktacja za poziom będzie obniżona,
-a użytkownik będzie mógł poprawić swoje rozwiązanie lub rozpocząć poziom od nowa z pełną pulą punktów.
-Dodatkowo w trakcie projektowania będzie można sprawdzić, czy dotychczasowy schemat jest poprawny,
-kosztem finalnej punktacji za poziom.
-Aby uniemożliwić nadużywanie tej mechaniki, wprowadzony zostanie limit czasu na jej użycie.
+W przypadku błędów %punktacja za poziom będzie obniżona,
+użytkownik będzie mógł poprawić swoje rozwiązanie. %lub rozpocząć poziom od nowa z pełną pulą punktów.
+%Dodatkowo w trakcie projektowania będzie można sprawdzić, czy dotychczasowy schemat jest poprawny,
+%kosztem finalnej punktacji za poziom.
+%Aby uniemożliwić nadużywanie tej mechaniki, wprowadzony zostanie limit czasu na jej użycie.
 Gdy zatwierdzony schemat spełni wymagania, gracz może przejść do kolejnego poziomu.
 Przepływ rozgrywki dokładniej przedstawiono w tab.~\ref{tab:game_flow}.
 
@@ -203,10 +205,10 @@ Przepływ rozgrywki dokładniej przedstawiono w tab.~\ref{tab:game_flow}.
         \hline
         \hline
         1 & Rozpoczęcie poziomu &
-        Użytkownik rozpoczyna poziom, przedstawia się mu wymagania w formie schematu elektrycznego oraz opisu. \\
+        Użytkownik rozpoczyna poziom, przedstawia się mu wymagania w formie listy wymaganych komponentów. \\
         \hline
         2 & Projektowanie schematu &
-        Użytkownik projektuje schemat, w ograniczonym czasie może sprawdzać jego poprawność kosztem punktów. \\
+        Użytkownik projektuje schemat\\ %, w ograniczonym czasie może sprawdzać jego poprawność kosztem punktów. \\
         \hline
         3 & Weryfikacja schematu &
         Użytkownik zatwierdza schemat, który następnie zostaje sprawdzony przez system. \\
@@ -218,7 +220,7 @@ Przepływ rozgrywki dokładniej przedstawiono w tab.~\ref{tab:game_flow}.
         Wymagania zostały spełnione, gracz może przejść do kolejnego poziomu. \\
         \hline
         5b & Wynik negatywny &
-        Wymagania nie zostały spełnione, gracz może poprawić schemat lub rozpocząć poziom od nowa. \\
+        Wymagania nie zostały spełnione, gracz może poprawić schemat. \\
         \hline
     \end{tabular}
 \end{table}

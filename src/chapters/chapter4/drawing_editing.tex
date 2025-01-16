@@ -4,7 +4,7 @@
 W celu umożliwienia użytkownikowi projektowania schematów układów scalonych,
 w grze zaimplementowano zestaw narzędzi do rysowania i edycji, których założenia przedstawiono w podrozdziale~\ref{sec:zalozenia_funkcjonalne}.
 Podobnie jak w przypadku warstw, narzędzia są wstępnie definiowane w pliku konfiguracyjnym SO, \texttt{ToolConfig}.
-Zawiera on informacje o wskazówce dla narzędzia, ikonie, przypisanym klawiszu czy jest używane do edytowania zaznaczenia
+Zawiera on informacje o wskazówce dla narzędzia, ikonie, przypisanym skrócie klawiszowym, czy jest używane do edytowania zaznaczenia
 oraz o grafice i hotspocie niestandardowego kursora.
 Przykładową konfigurację przedstawiono na rys.~\ref{fig:tool_config}.
 
@@ -55,13 +55,15 @@ rys.~\ref{fig:tools_hierarchy}.
 %\newpage % TODO: check this if something changes
 
 Ponieważ narzędzia są od początku obecne na scenie, 
-do \texttt{ToolsManager} należało przypisać referencje do konfiguracji narzędzi wraz z samymi narzędziami,
+do \texttt{ToolsManager} należało przypisać referencje do konfiguracji narzędzi wraz z samymi obiektami narzędzi,
 jak pokazano na rys.~\ref{fig:tools_manager}.
 W tym celu przygotowano dodatkowo strukturę \texttt{ToolHolder},
-która przechowuje obie referencje, przy czym w przypadku narzędzia potrzebne było,
+która przechowuje obie referencje.
+W przypadku narzędzia potrzebne było jeszcze,
 aby dziedziczyło ono po klasie \texttt{ToolAbstaract}.
 %Dzięki czemu można przekazać, a później także zarządzać narzędziami niezależnie od ich funkcji. 
-Dzięki czemu również można było zarządzać narzędziami niezależnie od ich funkcji.
+%Dzięki czemu również można było zarządzać narzędziami niezależnie od ich funkcji.
+Dzięki temu można zarządzać narzędziami niezależnie od ich funkcji.
 
 \begin{figure}[h!]
     \centering
@@ -76,11 +78,12 @@ Narzędzia punktowe działają jedynie na jedną komórkę jednocześnie,
 z tego powodu do wykrywania komórek używają funkcji \texttt{Physics.Raycast}.
 Sprawdza ona, czy w prostej linii występuje kolizja z obiektem posiadającym komponent \texttt{Collider}.\\
 \indent W przypadku narzędzi obszarowych wykrywanie odbywa się poprzez rozciąganie detektora w narzędziu,
-którym jest \texttt{BoxCollider} z zaznaczoną opcją \textit{Is Trigger}.%, przedstawioną na listingu~\ref{lst:drag_update}.
+którym jest \texttt{BoxCollider} z zaznaczoną opcją \textit{Is Trigger}.
+%, przedstawioną na listingu~\ref{lst:drag_update}.
 Istotne jest także,
-aby detektor zawsze był minimalnie mniejszy od wymiaru obszaru w celu uniknięcia kolizji z sąsiednimi komórkami.
+aby detektor zawsze był minimalnie mniejszy od wymiaru obszaru w celu uniknięcia wykrycia komórek jedynie sąsiadujących z nim.
 %\input{chapters/chapter4/code/drag_update}
-W momencie kolizji detektora z komórką wywoływana jest funkcja \texttt{OnTriggerEnter} w narzędziu,
+W momencie kolizji detektora z komórką w narzędziu wywoływana jest funkcja \texttt{OnTriggerEnter},
 która zwraca referencję do komórki, z którą nastąpiła kolizja.
 Po wyjściu z kolizji wywoływana jest funkcja \texttt{OnTriggerExit}.
 Dzięki wykorzystaniu tych funkcji możliwe jest wykrywanie komórek w trakcie pracy narzędzia,
@@ -108,8 +111,17 @@ i być na tyle krótki, by nie wykrywać komórek z innych warstw.
 Ponieważ czas pomiędzy kolejnymi klatkami jest większy niż czas odświeżania myszy,
 potrzebne jest dodatkowe sprawdzenie, czy przesunięcie względem poprzedniej pozycji nie jest za duże,
 w przypadku gdy miało to miejsce, należało wypełnić obszar między dwoma punktami.
-Służyła do tego funkcja \texttt{DrawInterpolate}.%, przedstawiona na listingu~\ref{lst:draw_interpolate}.
+Służy do tego funkcja \texttt{DrawInterpolate},
+rysująca linię między obecnym a poprzednim punktem.
+Skonfigurowany pędzel przedstawiono na rys.~\ref{fig:brush}.
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapters/chapter4/rys/tools/brush}
+    \caption[Skonfigurowane narzędzie pędzla.]{Skonfigurowane naarzędzie pędzla, źródło: opracowanie własne.}
+    \label{fig:brush}
+\end{figure}
+%, przedstawiona na listingu~\ref{lst:draw_interpolate}.
 %\input{chapters/chapter4/code/draw_interpolate}
 
 \subsection{Rysowanie prostokątne}
@@ -119,22 +131,48 @@ Narzędzie rysowania prostokątnego jest narzędziem obszarowym.
 Podobnie jak w przypadku pędzla detekcja komórek odbywa się jedynie na poziomie jednej warstwy,
 po zakończeniu zaznaczania sprawdzana jest po kolei każda pozycja z obszaru czy nie pokrywa się z którąś z komórek,
 gdy pozycja jest niezajęta, narysowana może zostać nowa komórka.
+Widok inspektora narzędzia przedstawiono na rys.~\ref{fig:rectangle}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapters/chapter4/rys/tools/rectangle}
+    \caption[Skonfigurowane narzędzie rysowania prostokątnego.]{Skonfigurowane narzędzie rysowania prostokątnego, źródło: opracowanie własne.}
+    \label{fig:rectangle}
+\end{figure}
 
 \subsection{Gumka i usuwanie obszarowe}
 \label{subsec:gumka_i_usuwanie_obszarowe}
 
 Gumka i usuwanie prostokątnego obszaru działają na podobnej zasadzie jak odpowiednio pędzel
-i narzędzie rysowania prostokątnego, przy czym mają na celu ich usunięcie.
+i narzędzie rysowania prostokątnego, przy czym mają na celu usuwanie komórek.
 Główną różnicą jest to, że długość promienia w funkcji \texttt{Physics.Raycast} dla gumki jest większa,
 co pozwala na wykrycie po kolei wszystkich komórek dla każdej z warstw.
 Podobnie w przypadku usuwania obszarowego,
 \textt{BoxCollider} będący detektorem musi być większy w osi Z tak, aby mógł nachodzić na komórki ze wszystkich warstw.
+Widok inspektora narzędzia gumki przedstawiono na rys.~\ref{fig:erase},
+a narzędzia usuwania obszarowego na rys.~\ref{fig:recta_erase}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapters/chapter4/rys/tools/brush_erase}
+    \caption[Skonfigurowane narzędzie gumki.]{Skonfigurowane narzędzie gumki, źródło: opracowanie własne.}
+    \label{fig:erase}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapters/chapter4/rys/tools/rectangle_erase}
+    \caption[Skonfigurowane narzędzie usuwania obszarowego.]
+    {Skonfigurowane narzędzie usuwania obszarowego, źródło: opracowanie własne.}
+    \label{fig:recta_erase}
+\end{figure}
 
 \subsection{Zaznaczanie}
 \label{subsec:zaznaczanie}
 
 Zaznaczanie jest narzędziem obszarowym, pozwalającym na wybranie komórek w celu ich edycji.
-Podobnie jak w przypadku usuwania obszarowego, \textt{BoxCollider} musi być większy,
+Podobnie jak w przypadku usuwania obszarowego,
+\textt{BoxCollider} musi być większy,
 aby mógł wykrywać komórki ze wszystkich warstw.
 Po zakończeniu zaznaczania,
 referencje do wykrytych obiektów są przekazywane do oddzielnego komponentu \texttt{SelectContainer}
@@ -144,11 +182,19 @@ co pozwala na ich wyróżnienie oraz lepszą filtrację.
 Dzięki wykorzystaniu osobnego komponentu można niezależnie,
 względem samego narzędzia,
 kontrolować zaznaczone komórki.
-W przypadku trybu dodawania do zaznaczenia proces jest identyczny,
-natomiast w trybie odejmowania zaznaczenia,
+W przypadku trybu dodawania zaznaczenia proces jest identyczny, jak przy samym zaznaczaniu,
+natomiast w trybie odejmowania,
 wykryte obiekty są usuwane z listy w \texttt{SelectContainer}, a ich kolor i warstwa Unity resetowane.
 Ponowne zaznaczenie komórek bez dodatkowego trybu resetuje zaznaczenie,
 podobnie jak wybranie innego narzędzia nieoznaczonego jako do edycji bądź wciśnięcie klawisza~\textt{Esc}.
+Skonfigurowane narzędzie zaznaczania przedstawiono na rys.~\ref{fig:select}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapters/chapter4/rys/tools/select}
+    \caption[Skonfigurowane narzędzie zaznaczania.]{Skonfigurowane narzędzie zaznaczania, źródło: opracowanie własne.}
+    \label{fig:select}
+\end{figure}
 
 \subsection{Przesuwanie}
 \label{subsec:przesuwanie}
@@ -157,10 +203,10 @@ Przesuwanie jako jedyne nie należy do żadnego z wcześniej wymienionych typów
 gdyż jest narzędziem edycji zaznaczenia.
 Przesunąć zaznaczony obszar można poprzez przeciągnięcie go w dowolnym kierunku.
 Przy każdym kliknięciu przycisku myszy uprzednio sprawdzane jest,
-czy \texttt{SelectContainer} posiada zaznaczenie oraz pobiera się pozycję kursora.
+czy \texttt{SelectContainer} posiada zaznaczenie,
 %i czy kliknięto miejsce, gdzie ono występuje,
-Do tego weryfikowane jest, czy kliknięto miejsce, gdzie ono występuje.
-Do tego celu ponownie wykorzystano \texttt{Physics.Raycast} z tą różnicą,
+do tego weryfikowane jest, czy kliknięto miejsce, gdzie ono występuje.
+W tym celu ponownie wykorzystano \texttt{Physics.Raycast} z tą różnicą,
 że dodano filtracje po warstwach Unity, aby wykryć jedynie obiekty należące do warstwy \textit{Selection}.
 W przypadku gdy zaznaczenie jest wykryte, \texttt{SelectContainer} ustawia jako rodzica zaznaczonych obiektów,
 obecne narzędzie.
@@ -175,6 +221,14 @@ Po zakończeniu przesuwania i puszczeniu przycisku myszy,
 zaznaczone obiekty są zwracane do swoich oryginalnych rodziców.
 Proces ten polega na odpowiednim posortowaniu komórek według ich tagów, 
 odpowiada za to komponent \texttt{SelectContainer}.
+Widok skonfigurowanego narzędzia przesuwania przedstawiono na rys.~\ref{fig:move}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapters/chapter4/rys/tools/move}
+    \caption[Skonfigurowane narzędzie przesuwania.]{Skonfigurowane narzędzie przesuwania, źródło: opracowanie własne.}
+    \label{fig:move}
+\end{figure}
 
 \subsection{Kontakty między warstwami}
 \label{subsec:kontakty}
@@ -189,6 +243,15 @@ detektor został zwiększony, aby wykryć,
 z którymi warstwami przecina się kontakt.
 Jeśli wykryta liczba warstw różni się od dwóch lub zostanie wykryty inny kontakt,
 rysowanie zostaje przerwane.
+Widok narzędzia rysowania kontaktów przedstawiono na rys.~\ref{fig:contact}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapters/chapter4/rys/tools/contact}
+    \caption[Skonfigurowane narzędzie rysowania kontaktów.]
+        {Skonfigurowane narzędzie rysowania kontaktów, źródło: opracowanie własne.}
+    \label{fig:contact}
+\end{figure}
 
 \subsection{Oznaczenia zasilania ($V_{DD}$) i masy ($V_{SS}$)}
 \label{subsec:oznaczenia_zasilania}
@@ -209,7 +272,7 @@ Oznaczenia są rysowane jako komórki,
 z których każda zawiera komponent \texttt{NodeLabel}.
 Podczas tworzenia oznaczenia przypisywany jest mu odpowiedni typ: $V_{DD}$ lub $V_{SS}$.
 Do rysowania obu typów oznaczeń wykorzystuje się komponent \texttt{NodeLabelTool},
-skonfigurowany w różny sposób, co pozwala na stworzenie dwóch oddzielnych narzędzi dla każdego oznaczenia,
+co pozwala na stworzenie dwóch oddzielnych narzędzi dla każdego oznaczenia,
 ale jednoczesne wykorzystanie tych samych komponentów.
 Aby umożliwić oznaczanie wyłącznie na warstwach metalu, narzędzie wykorzystuje \texttt{Physics.Raycast},
 aby sprawdzić, czy pod wybraną pozycją znajduje się komórka z warstwy metalu.
@@ -217,5 +280,14 @@ Weryfikacja odbywa się poprzez sprawdzenie tagu obiektu, czy jest równy \texti
 Ponieważ na schemacie może znajdować się tylko jedno oznaczenie danego typu,
 \texttt{NodeLabelTool} przechowuje referencję do już istniejącej komórki.
 Przy ponownym użyciu narzędzia zmieniana jest jedynie pozycja istniejącego oznaczenia.
+Widok inspektora narzędzia oznaczeń przedstawiono na rys.~\ref{fig:label}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapters/chapter4/rys/tools/node_label_tool}
+    \caption[Skonfigurowane narzędzie oznaczeń dla typu $V_{DD}$.]
+    {Skonfigurowane narzędzie oznaczeń dla typu $V_{DD}$, źródło: opracowanie własne.}
+    \label{fig:label}
+\end{figure}
 
 

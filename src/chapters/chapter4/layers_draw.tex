@@ -19,15 +19,15 @@ Rozwiązanie takie pozwala na optymalniejsze zarządzanie pamięcią,
 ponieważ całą warstwę można zapisać jako tablice bitów,
 gdzie każdy bit odpowiada jednej komórce i \texttt{1} oznacza,
 że jest zajęta a~\textt{0} -- wolna.
-W połączeniu z tym rozwiązaniem można wykorzystać dwie metody rysowania warstw:
+W połączeniu z tym rozwiązaniem można wyróżnić dwie metody rysowania warstw:
 
 \begin{citemize}
     \item Rysowanie co modyfikację całej warstwy od nowa -- w tej metodzie cała warstwa jest rysowana od nowa po każdej modyfikacji,
-    nie ma potrzeby sprawdzania każdego kwadratu czy jest zajęty, oraz pozwala na pośrednie modyfikowanie narysowanej warstwy,
+    nie ma tu potrzeby sprawdzania każdego kwadratu czy jest zajęty, pozwala to również na pośrednie modyfikowanie narysowanej warstwy,
     bez potrzeby posiadania referencji do obiektów na scenie.
     Wadą jest jednak rysowanie całej warstwy po każdej modyfikacji,
     co przy dużym obszarze roboczym i dużej ilości już narysowanych elementów wpłynie negatywnie na optymalizację.
-    \item Rysowanie tylko zmienionych kwadratów -- w tej metodzie komórki są rysowane tylko wtedy, gdy są puste,
+    \item Rysowanie tylko zmienionych kwadratów -- w tej metodzie komórki są rysowane tylko wtedy, gdy nie są puste,
     co w ogólnym rozrachunku jest szybsze, jednak wymaga sprawdzania każdej komórki czy nie jest zajęta,
     oraz w celu modyfikacji już istniejących elementów, potrzebne jest posiadanie referencji do GO na scenie.
 \end{citemize}
@@ -52,7 +52,7 @@ zamiast go usuwać, jest on dezaktywowany i przenoszony z powrotem do puli.
 W przypadku gdy w puli brakuje obiektów, tworzy ona nowe i zwraca je bezpośrednio w metodzie pobierającej obiekt.
 Do implementacji tego mechanizmu stworzono komponent \texttt{CellsPool},
 posiadający listę struktur \texttt{PoolData} dla każdej z warstw.
-Struktura ta przechowuje informację o tym, dla jakiej warstwy jest pula oraz samą pulę obiektów.
+Struktura ta przechowuje informację o tym, dla jakiej warstwy jest pulą oraz samą pulę obiektów.
 Do przetrzymywania tworzonych instancji wykorzystano klasę \texttt{Queue},
 jest to struktura danych FIFO (ang. \textit{First In, First Out}),
 która pozwala na dodawanie elementów na koniec kolejki oraz usuwanie z jej początku.
