@@ -36,7 +36,7 @@ W tym celu z \texttt{LayersManager} pobierane są wszystkie komórki z warstwy \
 Dla każdej z komórek sprawdzane jest, 
 czy znajduje się pod nią komórka z warstwy \textit{N Diffusion} lub \textit{P Diffusion}.
 Do tego celu wykorzystywana jest kolejna funkcja z zasobu systemu fizyki Unity, \texttt{Physics.OverlapBox},
-wykrywa ona obiektyw będące w lub stykające się z podanym obszarem.
+wykrywa ona obiekty znajdujące się wewnątrz lub stykające z zadanym obszarem.
 Jeśli udało się wykryć komórkę z warstw dyfuzyjnych, to znaczy, że znaleziono część tranzystora.
 %Tworzony jest wtedy nowy obiekt dziedziczący po klasie \texttt{Transistor}, \textt{NTransistor} lub \texttt{PTransistor},
 %odpowiednio dla tranzystorów nMOS lub pMOS.
