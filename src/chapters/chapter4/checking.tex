@@ -1,23 +1,52 @@
-\section{Sprawdzanie poprawności schematu}
+\section{Poziomy gry i ich sprawdzanie}
 \label{sec:sprawdzanie_poprawnosci_schematu}
 
-Dla każdego poziomu wymagania zapisane są w~SO~\texttt{Level}, który opisuje,
+Dla każdego poziomu na ich starcie przedstawiane są wymagania, jakie schemat musi spełnić.
+Zapisane są w~SO~\texttt{Level}, który opisuje,
 jakiego rodzaju wymagany jest tranzystor,
 między jakimi węzłami powinien się znajdować,
 a~także jakie są wymagane wymiary bramki.
-Przykładowe wymagania dla poziomu 1 przedstawiono na rys.~\ref{fig:level1_requirements}.
+Przykładową konfigurację wymagań dla poziomu 1 przedstawiono na rys.~\ref{fig:level1_requirements}.
+Zmianą poziomów, przechowywaniem ich oraz wywołaniem sprawdzenia zajmuje się komponent \texttt{GameManager},
+dziedziczący po \texttt{MonoSingleton}.
+Poziomy gry oraz komponenty w~nich wymagane przedstawiono w tabeli~\ref{tab:level_components}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=.9\textwidth]{chapters/chapter4/rys/level}
     \caption[Przykładowe wymagania dla poziomu 1.]
-    {Przykładowe wymagania dla poziomu 1, źródło: opracowanie własne.}
+    {Przykładowa konfiguracja wymagań dla poziomu 1, źródło: opracowanie własne.}
     \label{fig:level1_requirements}
 \end{figure}
 
-Za sprawdzanie poprawności schematu odpowiada komponent \texttt{CheckerManager}, dziedziczący po \texttt{MonoSingleton}.
+\begin{table}
+    \centering
+    \caption[Poziomy gry oraz komponenty w~nich wymagane.]
+    {Poziomy gry oraz komponenty w~nich wymagane, źródło: opracowanie własne.}
+    \label{tab:level_components}
+    \begin{tabular}{|l|c|c|c|c|c|}
+        \hline
+        Poziom & \multicolumn{5}{|c|}{Komponenty} \\
+        \cline{2-6}
+        & Typ tranzystora & Węzeł 1 & Węzeł 2 & Szer. bramki & Dł. bramki \\
+        \hline
+        \hline
+        1 & nMOS & $V_{DD}$ & $V_{SS}$ & 3 & 3 \\
+        \hline
+        2 & pMOS & $V_{DD}$ & $V_{SS}$ & 2 & 6 \\
+        \hline
+        3 & nMOS & $V_{DD}$ & 1 & 2 & 6 \\
+        \cline{2-6}
+        & pMOS & 1 & $V_{SS}$ & 6 & 5 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\newpage % TODO: check this if something changes
+
+Za sprawdzanie poprawności schematu odpowiada komponent \texttt{CheckerManager}.
 Zadaniem tego komponentu jest wywołanie skryptu walidującego narysowany schemat,
-a~następnie porównanie wyników z~wymaganiami poziomu.
+a~następnie porównanie wyników z~wymaganiami danego poziomu.
 Na tej podstawie decyduje, czy schemat jest poprawny, czy też nie
 i~wywołuje okno wyników, które informuje użytkownika o rezultacie.
 
@@ -58,13 +87,15 @@ Dzięki temu znacząco uproszczone będzie wykrycie połączeń.
 Przy ustawianiu rozmiaru komponentu \texttt{BoxCollider}, przy okazji obliczane są wymiary bramki tranzystora,
 Główny kod funkcji do znajdywania tranzystorów przedstawiona jest na listingu~\ref{lst:find_transistors}.
 Aby uniknąć zawieszenia się pętli programu,
-zastosowano przy wyszukiwaniu komórek tranzystora system asynchroniczności \textit{UniTask}.
-\newpage
+zastosowano przy wyszukiwaniu komórek tranzystora system asynchroniczności \textit{UniTask}.\\
 
 \input{chapters/chapter4/code/find_transistors}
+\\
 
 Po znalezieniu wszystkich tranzystorów wywoływana jest funkcja \texttt{StartSearch}.
 Rozpoczyna ona przeszukiwanie połączeń od komórki pod oznaczeniem $V_{DD}$.
+W~sytuacji gdy nie uda się znaleźć żadnego tranzystora, schemat jest niepoprawny,
+informacja o tym jest przekazywana do \texttt{CheckerManager} i sprawdzanie nie jest kontynuowane.
 W~pierwszej kolejności tworzony jest obiekt węzła \texttt{Node}, oznaczony jako \textit{vdd},
 który przechowuje w~listach wszystkie znalezione komórki,
 kontakty oraz tranzystory typu p i~n.
@@ -94,7 +125,7 @@ Jeśli tak, to obecny węzeł jest oznaczany jako \textit{vss}.
 Proces znajdywania połączeń jest powtarzany, aż do momentu,
 gdy nie będzie już możliwe wykrycie nowych obiektów.
 Główną funkcję \texttt{SearchByOverlap} odpowiedzialną za przeszukiwanie przedstawiono na listingu~\ref{lst:search_overlap}.
-Ponownie zastosowano tutaj system asynchroniczności \textit{UniTask}.
+Ponownie zastosowano tutaj system asynchroniczności \textit{UniTask}.\\
 
 \input{chapters/chapter4/code/search_overlap}
 
@@ -105,8 +136,12 @@ Po zakończeniu walidacji przez \texttt{TopographyValidator} wywołuje on wydarz
 w~którym przekazuje wszystkie wykryte tranzystory, wraz z~ich połączeniami i~wymiarami.
 Iterując po elementach zawartych w~wymaganiach poziomu,
 porównuje się je z~wykrytymi tranzystorami.
-Gdy któryś z~tranzystorów spełnia jedno z~wymagań, jest usuwany z~listy wykrytych.
+Prócz typu czy wymiaru tranzystora, istotne jest sprawdzenie, do jakich węzłów jest podłączony.
+Aby podłączenia były poprawne, to oba piny tranzystora muszą być podłączone do węzłów z~wymagań,
+przy czym nie ma znaczenia,
+do którego z~nich, ponieważ tranzystor jest symetryczny.
+Gdy któryś z~tranzystorów jest zgodny z~jednym z wymaganych, zostaje usunięty z~listy wykrytych.
 Jeśli pod koniec w~liście wykrytych tranzystorów nie ma już żadnych elementów,
 oznacza to, że~schemat jest poprawny.
 Wyświetlane jest wtedy okno informujące o sukcesie.
-W~przeciwnym wypadku gdy pozostały jeszcze tranzystory, to znaczy, że~schemat jest niepoprawny.
+W~przeciwnym wypadku gdy pozostały jeszcze tranzystory, to znaczy, że~schemat jest niepoprawny.\\

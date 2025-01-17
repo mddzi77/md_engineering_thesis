@@ -52,7 +52,7 @@ rys.~\ref{fig:tools_hierarchy}.
 %    \label{fig:tools}
 %\end{figure}
 
-%\newpage % TODO: check this if something changes
+\newpage % TODO: check this if something changes
 
 Ponieważ narzędzia są od początku obecne na scenie, 
 do \texttt{ToolsManager} należało przypisać referencje do konfiguracji narzędzi wraz z~samymi obiektami narzędzi,
@@ -233,16 +233,19 @@ Widok skonfigurowanego narzędzia przesuwania przedstawiono na rys.~\ref{fig:mov
 \subsection{Kontakty między warstwami}
 \label{subsec:kontakty}
 
-Rysowanie kontaktów działa podobnie jak~w~przypadku rysowania prostokątnego,
-natomiast zamiast wielu komórek rysowana jest tylko jedna na cały obszar.
+Sposób rysowania kontaktów działa tak jak~w~przypadku rysowania prostokątnego,
+z~tą różnicą, że~zamiast wielu komórek, generowana jest tylko jedna o wymiarach zadanego obszaru.
+Upraszcza to późniejszą detekcję połączeń między warstwami.
+%natomiast zamiast wielu komórek rysowana jest tylko jedna na cały obszar.
 %Podobnie do zaznaczania, czy usuwania obszarowego detektor jest większy,
 %aby wykryć, z~jakimi warstwami przecina się kontakt.
 %W~przypadku gdy wykryto inną ilość warstw niż dwie lub inny kontakt, kontakt nie jest rysowany.
 Podobnie jak~przy zaznaczaniu lub usuwaniu obszarowym,
-detektor został zwiększony, aby wykryć,
-z~którymi warstwami przecina się kontakt.
+podczas rysowania detektora jest większy, aby wykryć, z~którymi warstwami przecina się kontakt.
 Jeśli wykryta liczba warstw różni się od dwóch lub zostanie wykryty inny kontakt,
 rysowanie zostaje przerwane.
+Sam \texttt{BoxCollider} kontaktu jest również większy w~osi Z,
+aby przecinał się z~komórkami z~obu warstw.
 Widok narzędzia rysowania kontaktów przedstawiono na rys.~\ref{fig:contact}.
 
 \begin{figure}[h!]

@@ -39,18 +39,21 @@ W~połączeniu z~tym rozwiązaniem można wyróżnić dwie metody rysowania wars
 %aby nie doszło do sytuacji, gdzie sprite'y się nakładają.
 Niestety powyższe rozwiązania wymagają ciągłego iterowania po całej tablicy nawet przy modyfikacji jednego elementu
 i~albo dodatkowego przetrzymywania referencji, albo ciężkiego obliczeniowo rysowania całej warstwy od nowa.
-W~związku z~tym wybrano inne rozwiązanie, polegające na wykorzystaniu systemu fizyki w~silniku Unity,
-który pozwala na wykrywanie kolizji pomiędzy obiektami.
+W~związku z~tym wybrano inne rozwiązanie,
+polegające na wykorzystaniu silnika fizycznego w~Unity
+i~wbudowanymi narzędziami do detekcji kolizji pomiędzy obiektami~\cite{unity_physics}.
+%polegające na wykorzystaniu systemu fizyki w~silniku Unity,
+%który pozwala na wykrywanie kolizji pomiędzy obiektami.
 Daje to możliwość na niezależne wykrywanie komórek bez potrzeby referencji do nich i~ich położenia,
 znacząco upraszczając zarządzanie nimi oraz proces rysowania.
 W~tym celu do obiektu komórki prócz komponentu \texttt{SpriteRenderer} dodano komponent \texttt{BoxCollider},
 dzięki czemu obiekt ten może być wykrywany przez system fizyki.\\
-\indent Kolejnym sposobem na optymalizację jest wykorzystanie puli obiektów (ang. \textit{Object Pooling})~\cite{unity_cookbook}..
+\indent Kolejnym sposobem na optymalizację jest wykorzystanie puli obiektów (ang. \textit{Object Pooling})~\cite{unity_cookbook}.
 Ponieważ w~wielu przypadkach potrzebne będzie stworzenie wielu komórek naraz, co~jest kosztowne obliczeniowo,
 w~trakcie działania programu, co~klatkę tworzy się jedynie kilka nieaktywnych obiektów,
 które są następnie przechowywane w~puli.
 Gdy potrzebny jest nowy obiekt, pobiera się go z~puli i~aktywuje, gdy nie jest już potrzebny,
-jest on dezaktywowany i~przenoszony z~powrotem do puli.
+jest on dezaktywowany i~przenoszony z~powrotem.
 W~przypadku gdy w~puli brakuje obiektów, tworzy ona nowe i~zwraca je bezpośrednio w~metodzie pobierającej obiekt.
 Do implementacji tego mechanizmu stworzono komponent \texttt{CellsPool},
 posiadający listę struktur \texttt{PoolData} dla każdej z~warstw.
