@@ -3,22 +3,22 @@
 
 Najistotniejsze podczas projektowania programu są założenia funkcjonalne,
 które tak naprawdę definiują późniejsze założenia techniczne oraz samo działanie aplikacji.
-Założenia te definiują obszary takie jak interfejs użytkownika, mechanizmy oraz wprowadzanie danych wejściowych.\\
+Założenia te definiują obszary takie jak~interfejs użytkownika, mechanizmy oraz wprowadzanie danych wejściowych.\\
 \indent Głównym celem aplikacji jest umożliwienie użytkownikowi projektowanie prostych schematów układów scalonych.
-Wymaga to zaimplementowania edytora graficznego będącego w stanie przedstawić przystępnie topografię układu scalonego.
+Wymaga to zaimplementowania edytora graficznego będącego w~stanie przedstawić przystępnie topografię układu scalonego.
 Najbardziej intuicyjne jest wykorzystanie podejścia opierającego się na rysowaniu komórek,
-które składałyby się w elementy tworzące schemat, podobnie jak to ma miejsce w programach Magic VLSI czy Microwind.
+które składałyby się w~elementy tworzące schemat, podobnie jak~to ma miejsce w~programach Magic VLSI czy Microwind.
 Aby wprowadzić podstawowe założenia projektowania układu scalonego, oparto je o technologie Amis C5,
 opracowane przez firmę Mosis.
 Technologia ta definiuje rzeczywiste wymiary każdej kwadratowej komórki poprzez parametr $\lambda$
-zawarty w regułach projektowania.
+zawarty w~regułach projektowania.
 Sam wybór jakiejkolwiek technologii projektowania podyktowany
 jest próbą nauczenia skalowania wymiarów komórek względem wymiarów rzeczywistych.
-Jedne z takich reguł projektowania to \textit{SCMOS\_SUBM} o $\lambda=0,3~\um$~\cite{amis_c5, amis_params}.
-Definiują one również dostępne materiały, z których może się składać układ, parametry elementów oraz ograniczenia.
-Podstawowe materiały przedstawiono w tab.~\ref{tab:amis_materials}.
+Jedne z~takich reguł projektowania to \textit{SCMOS\_SUBM} o $\lambda=0,3~\um$~\cite{amis_c5, amis_params}.
+Definiują one również dostępne materiały, z~których może się składać układ, parametry elementów oraz ograniczenia.
+Podstawowe materiały przedstawiono w~tab.~\ref{tab:amis_materials}.
 Wybór tych materiałów powinien odbywać się poprzez paletę warstw,
-dzięki czemu użytkownik może\linebreak w sposób prosty wybrać odpowiedni z nich,
+dzięki czemu użytkownik może w~sposób prosty wybrać odpowiedni z~nich,
 jednocześnie mając przegląd wszystkich dostępnych warstw. 
 %Zasady projektowania wskazują także najmniejsze dopuszczalne tranzystory: 3,0\um \times 0,6\um (W/L)~\cite{amis_params}.,
 %czyli po podzieleniu przez $\lambda$ otrzymujemy 10 \times 2.
@@ -26,8 +26,8 @@ jednocześnie mając przegląd wszystkich dostępnych warstw.
 \newpage
 \begin{table}[h]
     \centering
-    \caption[Dostępne materiały w technologii Amis C5.]
-    {Dostępne podstawowe materiały w technologii Amis C5, źródło:~\cite{amis_params}.}
+    \caption[Dostępne materiały w~technologii Amis C5.]
+    {Dostępne podstawowe materiały w~technologii Amis C5, źródło:~\cite{amis_params}.}
     \label{tab:amis_materials}
     \begin{tabular}{|l|l|}
         \hline
@@ -51,34 +51,34 @@ jednocześnie mając przegląd wszystkich dostępnych warstw.
     \end{tabular}
 \end{table}
 
-Należy zaznaczyć również że poza samymi warstwami istotne jest także wprowadzenie połączeń między nimi.
+Należy zaznaczyć również że~poza samymi warstwami istotne jest także wprowadzenie połączeń między nimi.
 Kolejnym istotnym aspektem jest dobór narzędzi edycji schematu.
-Powinny one być dostępne w sposób intuicyjny, być łatwe w obsłudze oraz umożliwiać większość operacji na schemacie.
+Powinny one być dostępne w~sposób intuicyjny, być łatwe w~obsłudze oraz umożliwiać większość operacji na schemacie.
 Narzędzia te można rozdzielić na dwa rodzaje: narzędzia rysujące oraz narzędzia edytujące. \\
-\indent Poza samym edytorem istotne jest także wprowadzenie mechaniki gry.\linebreak
+\indent Poza samym edytorem istotne jest także wprowadzenie mechaniki gry.
 Ma ona na celu nauczenie użytkownika podstaw projektowania układów scalonych,
-stąd też powinna być maksymalnie prosta tak, aby można było skupić się na nauce\linebreak i na samym,
+stąd też powinna być maksymalnie prosta tak, aby można było skupić się na nauce i~na~samym,
 dość skomplikowanym, procesie projektowania
 
 \subsection{Narzędzia rysujące}
 \label{subsec:narzedzia_rysujace}
 
-Rysowanie jest podstawą tworzenia schematu, przez co powinny one być najprostsze i najbardziej intuicyjne.
-Każde z narzędzi powinno mieć przypisane skróty klawiszowe,
-które przedstawiono wraz z resztą w tab.~\ref{tab:key_shortcuts}. % TODO: dodać coś o warstwach i ich wyborze0
-Z podstawowych narzędzi, jakie mogą być przydatne w edytorze schematów, można wymienić:
+Rysowanie jest podstawą tworzenia schematu, przez co~powinny one być najprostsze i~najbardziej intuicyjne.
+Każde z~narzędzi powinno mieć przypisane skróty klawiszowe,
+które przedstawiono wraz z~resztą w~tab.~\ref{tab:key_shortcuts}. % TODO: dodać coś o warstwach i~ich wyborze0
+Z~podstawowych narzędzi, jakie mogą być przydatne w~edytorze schematów, można wymienić:
 
 \begin{citemize}
     \item Pędzel -- podstawowe narzędzie rysujące, które pozwala na rysowanie pojedynczych komórek
-    i które ma największą swobodę i precyzję rysowania,
+    i~które ma największą swobodę i~precyzję rysowania,
     \item Prostokąt -- narzędzie rysujące prostokątne obszary, które pozwala na szybkie,
-    ale i precyzyjne rysowanie dzięki dwóm trybom,
+    ale i~precyzyjne rysowanie dzięki dwóm trybom,
     \item Gumka -- działanie podobne do pędzla, ale zamiast rysować, usuwa komórki.
 \end{citemize}
 
-\indent Proces rysowania jest podobny do tego w programach graficznych,
-dzięki oparciu o rysowanie komórek, co pomaga w łatwym zapoznaniu się z edytorem.\linebreak
-Przed rysowaniem wybiera się warstwę (podobnie jak kolor w programach graficznych) oraz narzędzie rysujące.
+\indent Proces rysowania jest podobny do tego w~programach graficznych,
+dzięki oparciu o rysowanie komórek, co~pomaga w~łatwym zapoznaniu się z~edytorem.
+Przed rysowaniem wybiera się warstwę (podobnie jak~kolor w~programach graficznych) oraz narzędzie rysujące.
 
 \subsection{Narzędzia edytujące}
 \label{subsec:narzedzia_edytujace}
@@ -86,24 +86,24 @@ Przed rysowaniem wybiera się warstwę (podobnie jak kolor w programach graficzn
 Narzędzia edytujące pozwalają na modyfikowanie już narysowanych komórek.
 Podstawą jest zaznaczanie komórek do edytowania,
 stąd potrzeba narzędzia zaznaczającego.
-Opierać się ono powinno na takiej samej zasadzie działania jak narzędzie rysowania prostokątnego obszaru,
+Opierać się ono powinno na takiej samej zasadzie działania jak~narzędzie rysowania prostokątnego obszaru,
 dzięki czemu użytkownik nie musi zapamiętywać kilku różnych mechanizmów.
 Dodatkowo powinny istnieć skróty klawiszowe pozwalające na samo modyfikowanie obszaru poprzez dodawanie
-oraz odejmowanie zaznaczenia, przedstawiono je w tab.~\ref{tab:key_shortcuts}.
+oraz odejmowanie zaznaczenia, przedstawiono je w~tab.~\ref{tab:key_shortcuts}.
 Zaznaczony obszar można następnie modyfikować, poprzez narzędzie przesuwania.
-Operacje te, również będą miały swoje przypisania klawiszy, co pozwoli na szybsze operowanie na schemacie. \\
-\indent Istotnymi funkcjami jest też oznaczanie istotnych miejsc na schemacie, takich jak kontakty między warstwami,
-czy wejście zasilania i masy.
-Mimo tego, że są one elementami samego schematu i mogą być narysowane,
+Operacje te, również będą miały swoje przypisania klawiszy, co~pozwoli na szybsze operowanie na schemacie. \\
+\indent Istotnymi funkcjami jest też oznaczanie istotnych miejsc na schemacie, takich jak~kontakty między warstwami,
+czy wejście zasilania i~masy.
+Mimo tego, że~są one elementami samego schematu i~mogą być narysowane,
 to powinny być one wyróżnione poprzez skategoryzowanie jako odrębne narzędzia.
 %\indent Istotną funkcją jest także możliwość cofania ostatnich operacji,
 %natomiast ze względu na prostotę edytora ilość cofnięć, powinna być ograniczona,
-%co pozwoli także na uproszczenie programu od strony technicznej. % TODO: dodać ilość kroków cofania
+%co~pozwoli także na uproszczenie programu od strony technicznej. % TODO: dodać ilość kroków cofania
 
 \begin{table}[h]
     \centering
-    \caption[Skróty klawiszowe używane w edytorze schematów.]
-    {Skróty klawiszowe używane w edytorze schematów, źródło: opracowanie własne.}
+    \caption[Skróty klawiszowe używane w~edytorze schematów.]
+    {Skróty klawiszowe używane w~edytorze schematów, źródło: opracowanie własne.}
     \label{tab:key_shortcuts}
     \begin{tabular}{|l||l|p{0.66\textwidth}|}
         \hline
@@ -114,17 +114,17 @@ to powinny być one wyróżnione poprzez skategoryzowanie jako odrębne narzędz
         \hline
         \texttt{R} & \multicolumn{2}{|l|}{Rysowanie prostokątnego obszaru poprzez przeciąganie} \\
         \cline{2-3}
-        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i końcowego obszaru \\
+        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i~końcowego obszaru \\
         \hline
         \texttt{E} & \multicolumn{2}{|l|}{Gumka} \\
         \hline
         \texttt{W} & \multicolumn{2}{|l|}{Usuwanie prostokątnego obszaru} \\
         \cline{2-3}
-        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i końcowego obszaru \\
+        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i~końcowego obszaru \\
         \hline
         \texttt{S} & \multicolumn{2}{|l|}{Zaznaczanie obszaru poprzez przeciąganie} \\
         \cline{2-3}
-        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i końcowego obszaru \\
+        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i~końcowego obszaru \\
         \cline{2-3}
         & \texttt{Ctrl} & Przytrzymanie pozwala na dodawanie zaznaczenia \\
         \cline{2-3}
@@ -134,7 +134,7 @@ to powinny być one wyróżnione poprzez skategoryzowanie jako odrębne narzędz
         \hline
         \texttt{C} & \multicolumn{2}{|l|}{Zaznaczanie kontaktów} \\
         \cline{2-3}
-        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i końcowego obszaru \\
+        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i~końcowego obszaru \\
         \hline
         \texttt{D} & \multicolumn{2}{|l|}{Zaznaczanie zasilania} \\
         \hline
@@ -158,17 +158,17 @@ to powinny być one wyróżnione poprzez skategoryzowanie jako odrębne narzędz
 
 %\begin{table}[h]
 %    \centering
-%    \caption[Skróty klawiszowe używane w edytorze schematów.]
-%    {Skróty klawiszowe używane w edytorze schematów, źródło: opracowanie własne.}
+%    \caption[Skróty klawiszowe używane w~edytorze schematów.]
+%    {Skróty klawiszowe używane w~edytorze schematów, źródło: opracowanie własne.}
 %    \label{tab:key_shortcuts}
 %    \begin{tabular}{l l p{0.7\textwidth}}
 %        Skrót & \multicolumn{2}{l}{Opis} \\
 %        \hline
 %        \texttt{B} & \multicolumn{2}{l}{Pędzel} \\
 %        \texttt{R} & \multicolumn{2}{l}{Rysowanie prostokątnego obszaru poprzez przeciąganie} \\
-%        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i końcowego obszaru \\
+%        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i~końcowego obszaru \\
 %        \texttt{S} & \multicolumn{2}{l}{Zaznaczanie obszaru poprzez przeciąganie} \\
-%        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i końcowego obszaru \\
+%        & \texttt{Shift} & Przytrzymanie pozwala na rysowanie poprzez wybranie punktu początkowego i~końcowego obszaru \\
 %        & \texttt{Ctrl} & Dodawanie zaznaczenia \\
 %        & \texttt{Alt} & Odejmowanie zaznaczenia \\
 %    \end{tabular}
@@ -179,20 +179,20 @@ to powinny być one wyróżnione poprzez skategoryzowanie jako odrębne narzędz
 
 Mechanika gry ma na celu nauczenie użytkownika podstaw projektowania układów scalonych,
 jednocześnie starając się nie skomplikować samego procesu projektowania.
-Tak samo, jak w grach typu puzzle, gra będzie składać się z poziomów,
-które będą stopniowo wprowadzać użytkownika w proces projektowania.
-Każdy z poziomów będzie posiadał wymagania w formie listy komponentów,
+Tak samo, jak~w~grach typu puzzle, gra będzie składać się z~poziomów,
+które będą stopniowo wprowadzać użytkownika w~proces projektowania.
+Każdy z~poziomów będzie posiadał wymagania w~formie listy komponentów,
 gdzie powinny być podłączone oraz jakie mają mieć parametry.
-%w formie schematu elektrycznego oraz opisowej instrukcji.
-Gdy użytkownik uzna, że spełnił wymagania, będzie mógł sprawdzić swoje rozwiązanie,
+%w~formie schematu elektrycznego oraz opisowej instrukcji.
+Gdy użytkownik uzna, że~spełnił wymagania, będzie mógł sprawdzić swoje rozwiązanie,
 które zostanie zweryfikowane przez system sprawdzający.
-W przypadku błędów %punktacja za poziom będzie obniżona,
-użytkownik będzie mógł poprawić swoje rozwiązanie. %lub rozpocząć poziom od nowa z pełną pulą punktów.
-%Dodatkowo w trakcie projektowania będzie można sprawdzić, czy dotychczasowy schemat jest poprawny,
+W~przypadku błędów %punktacja za poziom będzie obniżona,
+użytkownik będzie mógł poprawić swoje rozwiązanie. %lub rozpocząć poziom od nowa z~pełną pulą punktów.
+%Dodatkowo w~trakcie projektowania będzie można sprawdzić, czy dotychczasowy schemat jest poprawny,
 %kosztem finalnej punktacji za poziom.
 %Aby uniemożliwić nadużywanie tej mechaniki, wprowadzony zostanie limit czasu na jej użycie.
 Gdy zatwierdzony schemat spełni wymagania, gracz może przejść do kolejnego poziomu.
-Przepływ rozgrywki dokładniej przedstawiono w tab.~\ref{tab:game_flow}.
+Przepływ rozgrywki dokładniej przedstawiono w~tab.~\ref{tab:game_flow}.
 
 \begin{table}[h]
     \centering
@@ -205,10 +205,10 @@ Przepływ rozgrywki dokładniej przedstawiono w tab.~\ref{tab:game_flow}.
         \hline
         \hline
         1 & Rozpoczęcie poziomu &
-        Użytkownik rozpoczyna poziom, przedstawia się mu wymagania w formie listy wymaganych komponentów. \\
+        Użytkownik rozpoczyna poziom, przedstawia się mu wymagania w~formie listy wymaganych komponentów. \\
         \hline
         2 & Projektowanie schematu &
-        Użytkownik projektuje schemat\\ %, w ograniczonym czasie może sprawdzać jego poprawność kosztem punktów. \\
+        Użytkownik projektuje schemat\\ %, w~ograniczonym czasie może sprawdzać jego poprawność kosztem punktów. \\
         \hline
         3 & Weryfikacja schematu &
         Użytkownik zatwierdza schemat, który następnie zostaje sprawdzony przez system. \\
@@ -234,9 +234,9 @@ Przepływ rozgrywki dokładniej przedstawiono w tab.~\ref{tab:game_flow}.
 %        \multicolumn{2}{l}{Krok} & Opis \\
 %        \hline
 %        1 & Rozpoczęcie poziomu &
-%        Użytkownik rozpoczyna poziom, przedstawia się mu wymagania w formie schematu elektrycznego oraz opisu. \\
+%        Użytkownik rozpoczyna poziom, przedstawia się mu wymagania w~formie schematu elektrycznego oraz opisu. \\
 %        2 & Projektowanie schematu & 
-%        Użytkownik projektuje schemat, w ograniczonym czasie może sprawdzać jego poprawność kosztem punktów. \\
+%        Użytkownik projektuje schemat, w~ograniczonym czasie może sprawdzać jego poprawność kosztem punktów. \\
 %        3 & Weryfikacja schematu &
 %        Użytkownik zatwierdza schemat, który następnie zostaje sprawdzony przez system. \\
 %        4 & Wynik &

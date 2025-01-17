@@ -1,18 +1,18 @@
 \chapter{Realizacja projektu}
 \label{ch:realizacja_projektu}
 
-Opracowywanie programu w przypadku korzystania z Unity jest częściowo podzielone między warstwę kodu a warstwę projektową,
-która obejmuje zarządzanie zasobami, scenami, prefabami oraz innymi elementami, które nie są bezpośrednio związane z kodem.
-Natomiast obie są ze sobą ściśle powiązane, kod definiuje komponenty i ich zachowanie,
-podczas gdy w edytorze należy je odpowiednio skonfigurować, aby działały zgodnie z założeniami.
-W związku z tym przy opisie każdej części aplikacji należy uwzględnić zarówno aspekty kodowe, jak i projektowe.\\
-\indent Zwracając uwagę na architekturę programu, z najistotniejszych elementów do zaprojektowania można wyróżnić:
+Opracowywanie programu w~przypadku korzystania z~Unity jest częściowo podzielone między warstwę kodu a~warstwę projektową,
+która obejmuje zarządzanie zasobami, scenami, prefabami oraz innymi elementami, które nie są bezpośrednio związane z~kodem.
+Natomiast obie są ze sobą ściśle powiązane, kod definiuje komponenty i~ich zachowanie,
+podczas gdy w~edytorze należy je odpowiednio skonfigurować, aby działały zgodnie z~założeniami.
+W~związku z~tym przy opisie każdej części aplikacji należy uwzględnić zarówno aspekty kodowe, jak~i~projektowe.\\
+\indent Zwracając uwagę na architekturę programu, z~najistotniejszych elementów do zaprojektowania można wyróżnić:
 
 \begin{citemize}
     \item System zarządzania warstwami, rysowaniem ich oraz przechowywaniem informacji o nich,
-    \item Narzędzia do rysowania i edycji, oraz zarządzanie nimi
-    \item System zarządzania progresem gry, a przede wszystkim algorytm weryfikujący poprawność schematów,
-    \item Interfejs graficzny pozwalający na interakcję użytkownika z programem, wybór warstw oraz narzędzi.
+    \item Narzędzia do rysowania i~edycji, oraz zarządzanie nimi
+    \item System zarządzania progresem gry, a~przede wszystkim algorytm weryfikujący poprawność schematów,
+    \item Interfejs graficzny pozwalający na interakcję użytkownika z~programem, wybór warstw oraz narzędzi.
 \end{citemize}
 
 \input{chapters/chapter4/layers_draw}

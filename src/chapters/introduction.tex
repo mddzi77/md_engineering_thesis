@@ -1,63 +1,63 @@
 \chapter{Wstęp i cel pracy}
 
-Programy do tworzenia schematów są jednym z kluczowych elementów
+Programy do tworzenia schematów są jednym z~kluczowych elementów
 procesu wielkoskalowej integracji układów scalonych (ang. VLSI — Very Large Scale Integration)~\cite{VLSI_insemi}.
 Polega to na projektowaniu podukładów o określonych funkcjach,
-które następnie są łączone w jeden, w pełni działający układ scalony.
+które następnie są łączone w~jeden, w~pełni działający układ scalony.
 Taki proces upraszcza projektowanie oraz produkcję układów scalonych, ponieważ prace można podzielić na mniejsze,
 mniej skomplikowane części.
-Dodatkowo wiele podukładów może być wykorzystywanych w różnych projektach,
-co znacznie zwiększa efektywność pracy i obniża jej koszty.
-W efekcie,
+Dodatkowo wiele podukładów może być wykorzystywanych w~różnych projektach,
+co~znacznie zwiększa efektywność pracy i~obniża jej koszty.
+W~efekcie,
 programy wspierające projektowanie schematów są nieodzownym narzędziem przy tworzeniu układów scalonych.
-%W ten sposób upraszczany jest proces projektowania oraz produkcji układów scalonych,
+%w~ten sposób upraszczany jest proces projektowania oraz produkcji układów scalonych,
 %gdyż pracę można podzielić na mniejsze części,
-%a dodatkowo cześć podukładów może być używana w wielu różnych projektach.
+%a~dodatkowo cześć podukładów może być używana w~wielu różnych projektach.
 Przykładem takiego programu jest open-source'owy (o publicznym kodzie źródłowym),
-Magic VLSI stworzony przez Johna Ousterhouta w 1980 roku,
-napisany w języku C na platformę Linux~\cite{MAGIC_article}.
+Magic VLSI stworzony przez Johna Ousterhouta w~1980 roku,
+napisany w~języku C na platformę Linux~\cite{MAGIC_article}.
 Charakteryzuje go prosta szata graficzna oraz szeroki zakres działania,
 lecz jego obsługa bywa często nieintuicyjna oraz nieprzyjazna dla początkujących użytkowników.
-Kolejnym powszechnie dostępnym programem jest Microwind,\linebreak
+Kolejnym powszechnie dostępnym programem jest Microwind,
 na który składa się zestaw modułów,
-jednym z nich jest edytor schematów~\cite{Microwind}.\linebreak
-Niestety, aby używać pełnej i aktualnej wersji oprogramowania potrzebna jest licencja.\linebreak
-W wielu innych przypadkach programy te są dostępne jedynie w wersjach płatnych, kierowanych do dużych firm.
+jednym z~nich jest edytor schematów~\cite{Microwind}.
+Niestety, aby używać pełnej i~aktualnej wersji oprogramowania potrzebna jest licencja.
+W~wielu innych przypadkach programy te są dostępne jedynie w~wersjach płatnych, kierowanych do dużych firm.
 To właśnie wysoki próg wejścia
-i złożoność obsługi tego rodzaju programów stały się inspiracją do opracowania tego projektu.\\
+i~złożoność obsługi tego rodzaju programów stały się inspiracją do opracowania tego projektu.\\
 \indent Celem tej pracy było stworzenie
-programu edukacyjnego w formie gry, który pomoże w nauce tworzenia schematów układów scalonych.
-Jedne z głównych założeń to prostota obsługi, intuicyjność oraz ergonomia,
+programu edukacyjnego w~formie gry, który pomoże w~nauce tworzenia schematów układów scalonych.
+Jedne z~głównych założeń to prostota obsługi, intuicyjność oraz ergonomia,
 na które mają wpływ przede wszystkim dobrze zaprojektowany interfejs graficzny użytkownika
 oraz wbudowane narzędzia wspierające edycję schematu.
-%Na tych założeniach opiera się cała część projektu związana z interfejsem użytkownika.\\
-Funkcje te stanowią podstawę części projektu związaną z interfejsem użytkownika
-i odpowiadają za poprawę użyteczności\linebreak
+%Na tych założeniach opiera się cała część projektu związana z~interfejsem użytkownika.\\
+Funkcje te stanowią podstawę części projektu związaną z~interfejsem użytkownika
+i~odpowiadają za poprawę użyteczności
 oraz dostępność aplikacji.\\
-\indent Kolejnym istotnym elementem tej pracy było przygotowanie angażującej\linebreak
-i skalowalnej pętli rozgrywki,
-która pozwoli na stopniowe wprowadzanie użytkownika w proces projektowania schematów układów scalonych,
-wraz z implementacją systemów sprawdzania poprawności wykonanych zadań, wskazywania błędów i ewentualnych podpowiedzi.
-%Dzięki realizacji założeń program pomoże w nauce podstaw bez odrzucania użytkownika
+\indent Kolejnym istotnym elementem tej pracy było przygotowanie angażującej
+i~skalowalnej pętli rozgrywki,
+która pozwoli na stopniowe wprowadzanie użytkownika w~proces projektowania schematów układów scalonych,
+wraz z~implementacją systemów sprawdzania poprawności wykonanych zadań, wskazywania błędów i~ewentualnych podpowiedzi.
+%Dzięki realizacji założeń program pomoże w~nauce podstaw bez odrzucania użytkownika
 %przez zbyt skomplikowaną obsługę.\\
 Dzięki realizacji założeń, projekt ten pozwoli użytkownikowi na zdobycie podstawowej wiedzy
-i umiejętności z zakresu projektowania układów scalonych,
-bez konieczności przechodzenia przez trudniejsze w obsłudze, tradycyjne oprogramowanie.\\
+i~umiejętności z~zakresu projektowania układów scalonych,
+bez konieczności przechodzenia przez trudniejsze w~obsłudze, tradycyjne oprogramowanie.\\
 \indent Zważając na wszystkie założenia oraz charakter edukacyjno-growy projektu,
 do realizacji wybrano silnik Unity Engine,
 bazujący na języku C\#,
-powszechnie wykorzystywany w tworzenia gier komputerowych.
-%program został stworzony w silniku Unity Engine,
+powszechnie wykorzystywany w~tworzenia gier komputerowych.
+%program został stworzony w~silniku Unity Engine,
 %powszechnie używanym do tworzenia gier komputerowych.
-%natomiast możliwość łatwego tworzenia interaktywnej aplikacji graficznej sprawdzi się w tego typu zastosowaniach.\\
+%natomiast możliwość łatwego tworzenia interaktywnej aplikacji graficznej sprawdzi się w~tego typu zastosowaniach.\\
 Wybór Unity podyktowany był prostotą tworzenia aplikacji graficznych oraz łatwego tworzenia interaktywnych elementów,
-co można wykorzystać nie tylko w grach, ale również w różnego typu narzędziach.
+co~można wykorzystać nie tylko w~grach, ale również w~różnego typu narzędziach.
 Dzięki Unity,
-program łączy funkcje gry z elementami edukacyjnymi,
-tworząc przystępną i atrakcyjną platformę do nauki podstaw projektowania układów scalonych.
+program łączy funkcje gry z~elementami edukacyjnymi,
+tworząc przystępną i~atrakcyjną platformę do nauki podstaw projektowania układów scalonych.
 %Został on wybrany ze względu na prostotę tworzenie aplikacji graficznych oraz łatwego tworzenia interaktywnych elementów,
-%co można wykorzystać nie tylko w grach, ale również w różnego typu narzędziach.
+%coi~można wykorzystać nie tylko w~grach, ale również w~różnego typu narzędziach.
 %Aby ujednolicić schematy oraz zadania do wykonania dla użytkowników,
-%projektowanie będzie odbywać się w tylko jednej technologii\ \textendash \ CMOS AMIS ami-C5.
-%Powodem wyboru tej technologii jest wcześniejsze doświadczenie w projektowaniu schematów układów scalonych
-%w tej technologii.
+%projektowanie będzie odbywać się w~tylko jednej technologii\ \textendash \ CMOS AMIS ami-C5.
+%Powodem wyboru tej technologii jest wcześniejsze doświadczenie w~projektowaniu schematów układów scalonych
+%w~tej technologii.
