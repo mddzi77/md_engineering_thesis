@@ -13,12 +13,12 @@ private async UniTask SearchByOverlap(Vector3 center, Node node) {
         else if (overlap.gameObject.CompareTag("P Transistor")) {
             var pTransistor = FindPTransistor(overlap.gameObject);
             if (node.PTransistors.Contains(pTransistor)) continue;
-            ConnectTransistor(node, pTransistor, overlap.transform.position);
+            ConnectTransistor(node, pTransistor, center);
         }
         else if (overlap.gameObject.CompareTag("N Transistor")) {
             var nTransistor = FindNTransistor(overlap.gameObject);
             if (node.NTransistors.Contains(nTransistor)) continue;
-            ConnectTransistor(node, nTransistor, overlap.transform.position);
+            ConnectTransistor(node, nTransistor, center);
         }
         else {
             var position = overlap.transform.position;
